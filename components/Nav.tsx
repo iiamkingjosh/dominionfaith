@@ -73,25 +73,13 @@ export default function Nav() {
                   <button
                     type="button"
                     onClick={() => toggleMenu(item.name)}
-                    className="inline-flex items-center gap-1 hover:underline focus:outline-none"
+                    className="hover:underline focus:outline-none"
                   >
                     {item.name}
-                    <span className={`transition-transform ${activeMenu === item.name ? 'rotate-180' : 'rotate-0'}`}>
-                      ▼
-                    </span>
                   </button>
                 ) : (
                   <Link href={item.href} className="hover:underline">
                     {item.name}
-                  </Link>
-                )}
-
-                {item.submenu && (
-                  <Link
-                    href={item.href}
-                    className="rounded bg-white px-2 py-1 text-blue-900 hover:bg-blue-100"
-                  >
-                    Visit
                   </Link>
                 )}
               </div>
