@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dominion Faith International Ministry
+
+A Next.js website for Dominion Faith International Ministry church.
+
+## Features
+
+- Home page with hero section, welcome message, service times, quick buttons, upcoming events, and latest sermon
+- About Us page with church history, beliefs, and leadership profiles
+- Vision & Mission page
+- Leadership page with general overseer, pastors, and ministers
+- Locations page with verified branches and maps
+- Media Center with sermons (video/audio), live services, and photo gallery
+- School of Ministry with overview, programs, admission, and registration
+- House Fellowship page
+- Departments page
+- Events page
+- Blog/Teachings with articles, devotionals, and teachings
+- Resources page with manuals and training materials
+- Give Online page with payment integration (Paystack/Flutterwave)
+- Contact Us page with form and map
+- High Impact page with first-timer form
+- Live Stream page with embedded YouTube/Facebook live
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+Deploy on Vercel or any hosting platform that supports Next.js.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16
+- TypeScript
+- Tailwind CSS
+- Paystack for payments (placeholder)
