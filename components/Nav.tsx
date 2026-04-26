@@ -1,24 +1,5 @@
 import Link from 'next/link';
 
-const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'About Us', href: '/about' },
-  { name: 'Vision & Mission', href: '/vision-mission' },
-  { name: 'Leadership', href: '/leadership' },
-  { name: 'Locations', href: '/locations' },
-  { name: 'Media Center', href: '/media-center' },
-  { name: 'School of Ministry', href: '/school-of-ministry' },
-  { name: 'House Fellowship', href: '/house-fellowship' },
-  { name: 'Departments', href: '/departments' },
-  { name: 'Events', href: '/events' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Resources', href: '/resources' },
-  { name: 'Give Online', href: '/give-online' },
-  { name: 'Contact Us', href: '/contact-us' },
-  { name: 'High Impact', href: '/high-impact' },
-  { name: 'Live Stream', href: '/live-stream' },
-];
-
 export default function Nav() {
   return (
     <nav className="bg-blue-900 text-white p-4">
@@ -26,16 +7,84 @@ export default function Nav() {
         <Link href="/" className="text-xl font-bold">
           Dominion Faith International Ministry
         </Link>
-        <ul className="hidden md:flex space-x-4">
-          {navItems.map((item) => (
-            <li key={item.name}>
-              <Link href={item.href} className="hover:underline">
-                {item.name}
-              </Link>
-            </li>
-          ))}
+
+        <ul className="hidden md:flex items-center gap-6">
+          <li>
+            <Link href="/" className="hover:underline">
+              Home
+            </Link>
+          </li>
+
+          <li className="relative group">
+            <span className="cursor-pointer hover:underline">About</span>
+            <ul className="absolute left-0 top-full mt-2 hidden w-48 rounded bg-white text-blue-900 shadow-lg group-hover:block">
+              <li>
+                <Link href="/vision-mission" className="block px-4 py-3 hover:bg-blue-100">
+                  Vision
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          <li className="relative group">
+            <span className="cursor-pointer hover:underline">Ministries</span>
+            <ul className="absolute left-0 top-full mt-2 hidden w-64 rounded bg-white text-blue-900 shadow-lg group-hover:block">
+              <li>
+                <Link href="/leadership" className="block px-4 py-3 hover:bg-blue-100">
+                  Leadership
+                </Link>
+              </li>
+              <li>
+                <Link href="/school-of-ministry" className="block px-4 py-3 hover:bg-blue-100">
+                  School of Ministry
+                </Link>
+              </li>
+              <li>
+                <Link href="/departments" className="block px-4 py-3 hover:bg-blue-100">
+                  Departments
+                </Link>
+              </li>
+              <li>
+                <Link href="/house-fellowship" className="block px-4 py-3 hover:bg-blue-100">
+                  House Care Fellowship
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          <li className="relative group">
+            <span className="cursor-pointer hover:underline">Media</span>
+            <ul className="absolute left-0 top-full mt-2 hidden w-48 rounded bg-white text-blue-900 shadow-lg group-hover:block">
+              <li>
+                <Link href="/events" className="block px-4 py-3 hover:bg-blue-100">
+                  Events
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          <li className="relative group">
+            <span className="cursor-pointer hover:underline">Blog</span>
+            <ul className="absolute left-0 top-full mt-2 hidden w-48 rounded bg-white text-blue-900 shadow-lg group-hover:block">
+              <li>
+                <Link href="/give-online" className="block px-4 py-3 hover:bg-blue-100">
+                  Give
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          <li className="relative group">
+            <span className="cursor-pointer hover:underline">Contact</span>
+            <ul className="absolute left-0 top-full mt-2 hidden w-48 rounded bg-white text-blue-900 shadow-lg group-hover:block">
+              <li>
+                <Link href="/locations" className="block px-4 py-3 hover:bg-blue-100">
+                  Locations
+                </Link>
+              </li>
+            </ul>
+          </li>
         </ul>
-        {/* Mobile menu can be added later */}
       </div>
     </nav>
   );
