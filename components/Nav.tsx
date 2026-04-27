@@ -33,9 +33,6 @@ export default function Nav({ currentPath, onNavigate }: NavProps) {
             src="/logo.png"
             className="w-12 h-12 rounded-lg border border-amber-400 bg-white/10"
           />
-          <div className="text-left">
-            <div className="text-lg font-bold text-amber-300">Dominion Faith</div>
-            <div className="text-sm text-slate-200">International Ministry</div>
           </div>
         </button>
 
