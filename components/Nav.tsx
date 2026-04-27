@@ -27,9 +27,17 @@ export default function Nav({ currentPath, onNavigate }: NavProps) {
       <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <button
           onClick={() => onNavigate('/')}
-          className="text-xl font-bold text-amber-300 hover:text-white"
+          className="flex items-center gap-3"
         >
-          Dominion Faith International Ministry
+          <img
+            src="/logo.png"
+            alt="Dominion Faith International Ministry logo"
+            className="w-12 h-12 rounded-lg border border-amber-400 bg-white/10"
+          />
+          <div className="text-left">
+            <div className="text-lg font-bold text-amber-300">Dominion Faith</div>
+            <div className="text-sm text-slate-200">International Ministry</div>
+          </div>
         </button>
 
         <nav className="flex flex-wrap gap-3 justify-center md:justify-end">
