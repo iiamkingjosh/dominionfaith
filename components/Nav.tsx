@@ -27,13 +27,13 @@ export default function Nav({ currentPath, onNavigate }: NavProps) {
       <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <button
           onClick={() => onNavigate('/')}
-          className="flex items-center gap-3"
+          className="flex items-center"
         >
           <img
             src="/logo.png"
+            alt="Dominion Faith International Ministry"
             className="w-12 h-12 rounded-lg border border-amber-400 bg-white/10"
           />
-          </div>
         </button>
 
         <nav className="flex flex-wrap gap-3 justify-center md:justify-end">
