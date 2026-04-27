@@ -1,107 +1,54 @@
-"use client";
-
-import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+interface NavProps {
+  currentPath: string;
+  onNavigate: (href: string) => void;
+}
 
 const menuItems = [
-  { name: 'Home', href: '/' },
-  {
-    name: 'About',
-    href: '/about',
-    submenu: [{ name: 'Vision', href: '/vision-mission' }],
-  },
-  {
-    name: 'Ministries',
-    href: '/leadership',
-    submenu: [
-      { name: 'Leadership', href: '/leadership' },
-      { name: 'School of Ministry', href: '/school-of-ministry' },
-      { name: 'Departments', href: '/departments' },
-      { name: 'House Care Fellowship', href: '/house-fellowship' },
-    ],
-  },
-  {
-    name: 'Media',
-    href: '/media-center',
-    submenu: [{ name: 'Events', href: '/events' }],
-  },
-  {
-    name: 'Blog',
-    href: '/blog',
-    submenu: [{ name: 'Give', href: '/give-online' }],
-  },
-  {
-    name: 'Contact',
-    href: '/contact-us',
-    submenu: [{ name: 'Locations', href: '/locations' }],
-  },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Vision', href: '/vision' },
+  { label: 'Leadership', href: '/leadership' },
+  { label: 'Ministries', href: '/ministries' },
+  { label: 'School of Ministry', href: '/school-of-ministry' },
+  { label: 'Departments', href: '/departments' },
+  { label: 'House Fellowship', href: '/house-fellowship' },
+  { label: 'Media', href: '/media' },
+  { label: 'Events', href: '/events' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Give', href: '/give' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Locations', href: '/locations' },
+  { label: 'Live', href: '/live' },
 ];
 
-export default function Nav() {
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const navRef = useRef<HTMLElement | null>(null);
-
-  const toggleMenu = (name: string) => {
-    setActiveMenu((current) => (current === name ? null : name));
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!navRef.current?.contains(event.target as Node)) {
-        setActiveMenu(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
+export default function Nav({ currentPath, onNavigate }: NavProps) {
   return (
-    <nav ref={navRef} className="bg-blue-900 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">
+    <header className="bg-slate-900 text-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <button
+          onClick={() => onNavigate('/')}
+          className="text-xl font-bold text-amber-300 hover:text-white"
+        >
           Dominion Faith International Ministry
-        </Link>
+        </button>
 
-        <ul className="hidden md:flex items-center gap-6">
+        <nav className="flex flex-wrap gap-3 justify-center md:justify-end">
           {menuItems.map((item) => (
-            <li key={item.name} className="relative">
-              <div className="flex items-center gap-2">
-                {item.submenu ? (
-                  <button
-                    type="button"
-                    onClick={() => toggleMenu(item.name)}
-                    className="hover:underline focus:outline-none"
-                  >
-                    {item.name}
-                  </button>
-                ) : (
-                  <Link href={item.href} className="hover:underline">
-                    {item.name}
-                  </Link>
-                )}
-              </div>
-
-              {item.submenu && activeMenu === item.name && (
-                <ul className="absolute left-0 top-full mt-2 w-64 rounded bg-white text-blue-900 shadow-lg">
-                  {item.submenu.map((sub) => (
-                    <li key={sub.name}>
-                      <Link
-                        href={sub.href}
-                        className="block px-4 py-3 hover:bg-blue-100"
-                      >
-                        {sub.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
+            <button
+              key={item.href}
+              type="button"
+              onClick={() => onNavigate(item.href)}
+              className={`text-sm px-3 py-2 rounded-md transition-colors ${
+                currentPath === item.href
+                  ? 'bg-amber-500 text-slate-900'
+                  : 'text-slate-200 hover:bg-slate-700 hover:text-white'
+              }`}
+            >
+              {item.label}
+            </button>
           ))}
-        </ul>
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 }
