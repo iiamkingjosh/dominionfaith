@@ -31,7 +31,6 @@ export default function Nav({ currentPath, onNavigate }: NavProps) {
         >
           <img
             src="/logo.png"
-            alt="Dominion Faith International Ministry logo"
             className="w-12 h-12 rounded-lg border border-amber-400 bg-white/10"
           />
           <div className="text-left">
