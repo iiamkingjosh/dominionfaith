@@ -1,10 +1,24 @@
 import { Shield, Heart, Book, Users, Star, Globe } from 'lucide-react';
+import { usePageContent } from '../lib/usePageContent';
 
 interface AboutProps {
   onNavigate: (href: string) => void;
 }
 
 export default function About({ onNavigate }: AboutProps) {
+  const pc = usePageContent('about', {
+    hero_title: 'Our Story',
+    hero_subtitle: 'About DFIM',
+    hero_description: 'Over two decades of raising champions in faith, purpose, and Kingdom dominion.',
+    hero_bg_image: 'https://images.pexels.com/photos/1624438/pexels-photo-1624438.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    story_title: 'Building a Church That Transforms Nations',
+    story_p1: 'Dominion Faith International Ministry (DFIM) was founded over two decades ago with a simple but powerful mandate: to raise a generation of believers who walk in their God-given dominion, unapologetically advancing the Kingdom of God wherever they go.',
+    story_p2: 'From a small gathering of faith-hungry believers in Port Harcourt, Rivers State, DFIM has grown into a thriving multi-branch ministry with a presence across Nigeria. Our growth is not measured in numbers alone, but in the transformation of lives — families restored, destinies discovered, and communities impacted.',
+    story_p3: 'We are a Word-based, Spirit-led, faith-driven church. Every service, every program, and every initiative is undergirded by the conviction that the Church of Jesus Christ is the most powerful institution on earth.',
+    story_tagline: 'A Place Where Champions Are Made.',
+    story_image: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=800',
+    story_years: '20+',
+  });
   const beliefs = [
     { icon: Book, title: 'The Holy Bible', desc: 'We believe the Bible is the inspired, inerrant Word of God — the final authority in all matters of faith and conduct.' },
     { icon: Star, title: 'The Holy Trinity', desc: 'We believe in one God who exists eternally in three persons: Father, Son, and Holy Spirit.' },
@@ -20,17 +34,15 @@ export default function About({ onNavigate }: AboutProps) {
       <section
         className="relative py-32 flex items-center"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.7) 100%), url('https://images.pexels.com/photos/1624438/pexels-photo-1624438.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.7) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center w-full">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">About DFIM</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Our Story</h1>
-          <p className="text-gray-300 text-xl leading-relaxed">
-            Over two decades of raising champions in faith, purpose, and Kingdom dominion.
-          </p>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
+          <p className="text-gray-300 text-xl leading-relaxed">{pc.hero_description}</p>
         </div>
       </section>
 
@@ -40,32 +52,18 @@ export default function About({ onNavigate }: AboutProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <span className="inline-block text-amber-600 font-semibold text-sm uppercase tracking-wider mb-3">Who We Are</span>
-              <h2 className="text-4xl font-bold text-slate-900 mb-6 leading-tight">
-                Building a Church That Transforms Nations
-              </h2>
+              <h2 className="text-4xl font-bold text-slate-900 mb-6 leading-tight">{pc.story_title}</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  Dominion Faith International Ministry (DFIM) was founded over two decades ago with a simple but powerful mandate: to raise a generation of believers who walk in their God-given dominion, unapologetically advancing the Kingdom of God wherever they go.
-                </p>
-                <p>
-                  From a small gathering of faith-hungry believers in Port Harcourt, Rivers State, DFIM has grown into a thriving multi-branch ministry with a presence across Nigeria. Our growth is not measured in numbers alone, but in the transformation of lives — families restored, destinies discovered, and communities impacted.
-                </p>
-                <p>
-                  We are a Word-based, Spirit-led, faith-driven church. Every service, every program, and every initiative is undergirded by the conviction that the Church of Jesus Christ is the most powerful institution on earth.
-                </p>
-                <p>
-                  Our tagline says it all: <span className="font-semibold text-slate-800 italic">"A Place Where Champions Are Made."</span> That is not just a phrase — it is our heartbeat and our commission.
-                </p>
+                <p>{pc.story_p1}</p>
+                <p>{pc.story_p2}</p>
+                <p>{pc.story_p3}</p>
+                <p>Our tagline says it all: <span className="font-semibold text-slate-800 italic">"{pc.story_tagline}"</span> That is not just a phrase — it is our heartbeat and our commission.</p>
               </div>
             </div>
             <div className="relative">
-              <img
-                src="https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Church congregation"
-                className="rounded-2xl shadow-2xl w-full h-96 object-cover"
-              />
+              <img src={pc.story_image} alt="Church congregation" className="rounded-2xl shadow-2xl w-full h-96 object-cover" />
               <div className="absolute -bottom-6 -left-6 bg-slate-900 text-white rounded-2xl p-5 shadow-xl">
-                <p className="text-3xl font-bold text-amber-400">20+</p>
+                <p className="text-3xl font-bold text-amber-400">{pc.story_years}</p>
                 <p className="text-sm text-gray-400 mt-1">Years of Transforming Lives</p>
               </div>
             </div>

@@ -1,0 +1,47 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Public read; authenticated admin writes
+    match /sermons/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /events/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /blog_posts/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /locations/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /page_content/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Public write-only (form submissions — no read except by admins)
+    match /contact_submissions/{docId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+    match /first_timer_submissions/{docId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+    match /som_applications/{docId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,15 +1,6 @@
+import { usePageContent } from '../lib/usePageContent';
+
 const leaders = {
-  generalOverseer: {
-    name: 'Apostle Emmanuel Okoro',
-    title: 'General Overseer & Founder',
-    image: 'https://images.pexels.com/photos/8468/church-faith-religion-photography.jpg?auto=compress&cs=tinysrgb&w=800',
-    bio: [
-      'Apostle Emmanuel Okoro is the visionary founder and General Overseer of Dominion Faith International Ministry. Called into ministry over two decades ago, he has dedicated his life to raising champions — believers who walk in the fullness of their God-given authority.',
-      'A prolific teacher of the Word, Apostle Okoro has ministered across Nigeria and beyond, igniting revival fires and building generational foundations wherever he goes. His ministry is characterized by deep biblical teaching, prophetic accuracy, and a genuine passion for discipleship.',
-      'He is a loving husband and father, and together with his wife, they lead the DFIM family with grace, wisdom, and uncommon dedication.',
-    ],
-    scriptureFocus: 'Ephesians 4:11-12',
-  },
   residentPastors: [
     {
       name: 'Pastor Samuel Bright',
@@ -49,23 +40,35 @@ const leaders = {
 };
 
 export default function Leadership() {
+  const pc = usePageContent('leadership', {
+    hero_title: 'Leadership Team',
+    hero_subtitle: 'Our Shepherds',
+    hero_description: 'Called, equipped, and sent — our leaders are committed to serving God and His people with excellence.',
+    hero_bg_image: 'https://images.pexels.com/photos/2774546/pexels-photo-2774546.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    go_name: 'Pst. Dr. Paul C. Igwe',
+    go_title: 'General Overseer & Founder',
+    go_image: 'https://images.pexels.com/photos/8468/church-faith-religion-photography.jpg?auto=compress&cs=tinysrgb&w=800',
+    go_scripture_focus: 'Ephesians 4:11-12',
+    go_bio1: 'Pst. Dr. Paul C. Igwe is the visionary founder and General Overseer of Dominion Faith International Ministry. Called into ministry over two decades ago, he has dedicated his life to raising champions — believers who walk in the fullness of their God-given authority.',
+    go_bio2: 'A prolific teacher of the Word, Pst. Dr. Igwe has ministered across Nigeria and beyond, igniting revival fires and building generational foundations wherever he goes. His ministry is characterized by deep biblical teaching, prophetic accuracy, and a genuine passion for discipleship.',
+    go_bio3: 'He is a loving husband and father, and together with his wife, they lead the DFIM family with grace, wisdom, and uncommon dedication.',
+    go_quote: 'The Church is the most powerful institution on earth. We are here to prove it, one champion at a time.',
+  });
   return (
     <div className="min-h-screen bg-white pt-16">
       {/* Hero */}
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('https://images.pexels.com/photos/2774546/pexels-photo-2774546.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Our Shepherds</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Leadership Team</h1>
-          <p className="text-gray-300 text-xl leading-relaxed">
-            Called, equipped, and sent — our leaders are committed to serving God and His people with excellence.
-          </p>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
+          <p className="text-gray-300 text-xl leading-relaxed">{pc.hero_description}</p>
         </div>
       </section>
 
@@ -78,28 +81,22 @@ export default function Leadership() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div className="sticky top-24">
-              <img
-                src={leaders.generalOverseer.image}
-                alt={leaders.generalOverseer.name}
-                className="w-full rounded-2xl shadow-2xl aspect-[4/5] object-cover"
-              />
+              <img src={pc.go_image} alt={pc.go_name} className="w-full rounded-2xl shadow-2xl aspect-[4/5] object-cover" />
             </div>
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
-                {leaders.generalOverseer.title}
+                {pc.go_title}
               </div>
-              <h3 className="text-4xl font-bold text-slate-900 mb-2">{leaders.generalOverseer.name}</h3>
-              <p className="text-amber-600 font-medium mb-8">Scripture Focus: {leaders.generalOverseer.scriptureFocus}</p>
+              <h3 className="text-4xl font-bold text-slate-900 mb-2">{pc.go_name}</h3>
+              <p className="text-amber-600 font-medium mb-8">Scripture Focus: {pc.go_scripture_focus}</p>
               <div className="space-y-4">
-                {leaders.generalOverseer.bio.map((para, i) => (
-                  <p key={i} className="text-gray-600 leading-relaxed">{para}</p>
-                ))}
+                <p className="text-gray-600 leading-relaxed">{pc.go_bio1}</p>
+                <p className="text-gray-600 leading-relaxed">{pc.go_bio2}</p>
+                <p className="text-gray-600 leading-relaxed">{pc.go_bio3}</p>
               </div>
               <blockquote className="mt-8 border-l-4 border-amber-500 pl-6 py-2 bg-amber-50 rounded-r-xl">
-                <p className="text-slate-700 font-medium italic">
-                  "The Church is the most powerful institution on earth. We are here to prove it, one champion at a time."
-                </p>
-                <footer className="text-sm text-gray-500 mt-2">— Apostle Emmanuel Okoro</footer>
+                <p className="text-slate-700 font-medium italic">"{pc.go_quote}"</p>
+                <footer className="text-sm text-gray-500 mt-2">— {pc.go_name}</footer>
               </blockquote>
             </div>
           </div>

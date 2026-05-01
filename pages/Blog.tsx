@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Calendar, User, Tag } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { firebaseQuery, getCollection } from '../lib/firebase';
+import { usePageContent } from '../lib/usePageContent';
 
 interface BlogPost {
   id: string;
@@ -20,20 +21,32 @@ interface BlogProps {
 }
 
 export default function Blog({ searchParams }: BlogProps) {
+  const pc = usePageContent('blog', {
+    hero_title: 'Blog',
+    hero_subtitle: 'Words of Life',
+    hero_description: 'Articles, devotionals, and teachings to nourish your faith and ignite your purpose.',
+    hero_bg_image: 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const initialCat = searchParams?.get('category') || 'all';
   const [activeCategory, setActiveCategory] = useState(initialCat);
 
   useEffect(() => {
-    let query = supabase.from('blog_posts').select('*').eq('is_published', true).order('published_at', { ascending: false });
+    const constraints = [
+      firebaseQuery.where('is_published', '==', true),
+      firebaseQuery.orderBy('published_at', 'desc'),
+    ];
+
     if (activeCategory !== 'all') {
-      query = query.eq('category', activeCategory);
+      constraints.unshift(firebaseQuery.where('category', '==', activeCategory));
     }
-    query.then(({ data }) => {
-      if (data) setPosts(data);
-      setLoading(false);
-    });
+
+    setLoading(true);
+    getCollection<BlogPost>('blog_posts', constraints)
+      .then(setPosts)
+      .catch(() => setPosts([]))
+      .finally(() => setLoading(false));
   }, [activeCategory]);
 
   const formatDate = (d: string) =>
@@ -60,16 +73,16 @@ export default function Blog({ searchParams }: BlogProps) {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Words of Life</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Blog</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            Articles, devotionals, and teachings to nourish your faith and ignite your purpose.
+            {pc.hero_description}
           </p>
         </div>
       </section>

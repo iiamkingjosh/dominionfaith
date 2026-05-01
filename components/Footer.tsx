@@ -28,16 +28,18 @@ export default function Footer({ onNavigate }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 py-14 grid gap-10 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center">
-              <span className="text-slate-900 font-bold">DFIM</span>
-            </div>
+            <img
+              src="/logo.png"
+              alt="Dominion Faith International Ministry"
+              className="w-12 h-12 object-contain"
+            />
             <div>
               <p className="font-semibold text-white">Dominion Faith</p>
               <p className="text-amber-400 text-sm">International Ministry</p>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-gray-400">
-            A place where champions are made. Raising believers who walk in dominion, faith, and purpose.
+            A place where champions are made.
           </p>
           <div className="mt-6 flex gap-4 text-gray-400">
             <a href="#" aria-label="Facebook"><Facebook size={18} /></a>
@@ -86,11 +88,11 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div className="space-y-4 text-sm text-gray-400">
             <div className="flex items-start gap-3">
               <MapPin size={16} className="text-amber-400 shrink-0 mt-0.5" />
-              <p>15 Faith Avenue, GRA, Port Harcourt, Rivers State, Nigeria</p>
+              <p>1 Dominion Avenue, Onireke, Opposite Ojo Military Cantonment. Lagos, Nigeria</p>
             </div>
             <div className="flex items-center gap-3">
               <Phone size={16} className="text-amber-400" />
-              <p>+234 803 000 0001</p>
+              <p>+234 703 454 3971</p>
             </div>
             <div className="flex items-center gap-3">
               <Mail size={16} className="text-amber-400" />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Play, Headphones, Image, Calendar } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { firebaseQuery, getCollection } from '../lib/firebase';
+import { usePageContent } from '../lib/usePageContent';
 
 interface Sermon {
   id: string;
@@ -14,6 +15,31 @@ interface Sermon {
   is_featured: boolean;
 }
 
+const defaultSermons: Sermon[] = [
+  {
+    id: '1',
+    title: 'Walking in Your God-Given Dominion',
+    preacher: 'Pst. Dr. Paul C. Igwe',
+    description: 'In this powerful message, Pst. Dr. Igwe unpacks what it truly means to walk in dominion — not just in church, but in every sphere of life. Rooted in Genesis 1:28 and Romans 8:37.',
+    video_url: '',
+    audio_url: '',
+    series: 'Dominion Series',
+    preached_at: '2026-04-20',
+    is_featured: true,
+  },
+  {
+    id: '2',
+    title: 'The Power of an Unshakeable Faith',
+    preacher: 'Pst. Dr. Paul C. Igwe',
+    description: 'Faith is not passive — it is a force that moves mountains. This message challenges you to build a faith that does not waver when circumstances scream otherwise.',
+    video_url: '',
+    audio_url: '',
+    series: 'Faith Foundations',
+    preached_at: '2026-04-13',
+    is_featured: false,
+  },
+];
+
 const galleryImages = [
   'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=600',
   'https://images.pexels.com/photos/2341290/pexels-photo-2341290.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -24,21 +50,29 @@ const galleryImages = [
 ];
 
 export default function Media() {
+  const pc = usePageContent('media', {
+    hero_title: 'Media Center',
+    hero_subtitle: 'His Word, Everywhere',
+    hero_description: 'Access sermons, messages, and photos from DFIM. Let the Word of God follow you everywhere.',
+    hero_bg_image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   const [sermons, setSermons] = useState<Sermon[]>([]);
   const [activeSermon, setActiveSermon] = useState<Sermon | null>(null);
   const [tab, setTab] = useState<'sermons' | 'gallery'>('sermons');
 
   useEffect(() => {
-    supabase
-      .from('sermons')
-      .select('*')
-      .order('preached_at', { ascending: false })
-      .then(({ data }) => {
-        if (data) {
-          setSermons(data);
-          const featured = data.find((s) => s.is_featured) || data[0];
-          if (featured) setActiveSermon(featured);
-        }
+    getCollection<Sermon>('sermons', [
+      firebaseQuery.orderBy('preached_at', 'desc'),
+    ])
+      .then((data) => {
+        const list = data.length ? data : defaultSermons;
+        setSermons(list);
+        const featured = list.find((s) => s.is_featured) || list[0];
+        if (featured) setActiveSermon(featured);
+      })
+      .catch(() => {
+        setSermons(defaultSermons);
+        setActiveSermon(defaultSermons[0]);
       });
   }, []);
 
@@ -51,16 +85,16 @@ export default function Media() {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">His Word, Everywhere</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Media Center</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            Access sermons, messages, and photos from DFIM. Let the Word of God follow you everywhere.
+            {pc.hero_description}
           </p>
         </div>
       </section>

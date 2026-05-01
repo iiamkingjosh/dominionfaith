@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import { BookOpen, Award, Users, Clock, CheckCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { addToCollection } from '../lib/firebase';
+import { usePageContent } from '../lib/usePageContent';
 
 export default function SchoolOfMinistry() {
+  const pc = usePageContent('school-of-ministry', {
+    hero_title: 'School of Ministry',
+    hero_subtitle: 'Equipping Ministers',
+    hero_description: "Where God's call meets professional training. Equipping you for effective Kingdom service.",
+    hero_bg_image: 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   const [form, setForm] = useState({ full_name: '', email: '', phone: '', program: '', qualification: '', testimony: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -51,12 +58,13 @@ export default function SchoolOfMinistry() {
     }
     setSubmitting(true);
     setError('');
-    const { error: dbError } = await supabase.from('school_registrations').insert([form]);
-    setSubmitting(false);
-    if (dbError) {
-      setError('Something went wrong. Please try again.');
-    } else {
+    try {
+      await addToCollection('school_registrations', form);
       setSubmitted(true);
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -66,16 +74,16 @@ export default function SchoolOfMinistry() {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Equipping Ministers</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">School of Ministry</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            Where God's call meets professional training. Equipping you for effective Kingdom service.
+            {pc.hero_description}
           </p>
         </div>
       </section>

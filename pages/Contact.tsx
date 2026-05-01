@@ -1,8 +1,23 @@
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, CheckCircle, Send } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { addToCollection } from '../lib/firebase';
+import { usePageContent } from '../lib/usePageContent';
 
 export default function Contact() {
+  const pc = usePageContent('contact', {
+    hero_title: 'Contact Us',
+    hero_subtitle: "We'd Love to Hear From You",
+    hero_description: 'Reach out, ask a question, or visit us. Our doors and hearts are always open.',
+    hero_bg_image: 'https://images.pexels.com/photos/1624438/pexels-photo-1624438.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    contact_address: '1 Dominion Avenue, Onireke, Opposite Ojo Military Cantonment',
+    contact_address_sub: 'Lagos, Nigeria',
+    contact_phone: '+234 703 454 3971',
+    contact_phone_hours: 'Mon – Sat, 8am – 6pm',
+    contact_email: 'info@dfim.org',
+    contact_email_note: 'We reply within 24 hours',
+    contact_service_times: 'Sun: 7am & 10am',
+    contact_service_times_sub: 'Wed & Fri: 5pm',
+  });
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [firstTimer, setFirstTimer] = useState({ full_name: '', email: '', phone: '', address: '', how_you_heard: '', prayer_request: '' });
   const [submitting, setSubmitting] = useState(false);
@@ -28,10 +43,14 @@ export default function Contact() {
     }
     setSubmitting(true);
     setError('');
-    const { error: dbError } = await supabase.from('contact_submissions').insert([form]);
-    setSubmitting(false);
-    if (dbError) setError('Something went wrong. Please try again.');
-    else setSubmitted(true);
+    try {
+      await addToCollection('contact_submissions', form);
+      setSubmitted(true);
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleFtSubmit = async (e: React.FormEvent) => {
@@ -42,10 +61,14 @@ export default function Contact() {
     }
     setFtSubmitting(true);
     setFtError('');
-    const { error: dbError } = await supabase.from('first_timer_submissions').insert([firstTimer]);
-    setFtSubmitting(false);
-    if (dbError) setFtError('Something went wrong. Please try again.');
-    else setFtSubmitted(true);
+    try {
+      await addToCollection('first_timer_submissions', firstTimer);
+      setFtSubmitted(true);
+    } catch {
+      setFtError('Something went wrong. Please try again.');
+    } finally {
+      setFtSubmitting(false);
+    }
   };
 
   const inputCls = 'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-shadow';
@@ -56,16 +79,16 @@ export default function Contact() {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('https://images.pexels.com/photos/1624438/pexels-photo-1624438.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">We'd Love to Hear From You</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Contact Us</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            Reach out, ask a question, or visit us. Our doors and hearts are always open.
+            {pc.hero_description}
           </p>
         </div>
       </section>
@@ -75,10 +98,10 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: MapPin, label: 'Address', value: '15 Faith Avenue, GRA, Port Harcourt, Rivers State', sub: 'Nigeria' },
-              { icon: Phone, label: 'Phone', value: '+234 803 000 0001', sub: 'Mon – Sat, 8am – 6pm' },
-              { icon: Mail, label: 'Email', value: 'info@dfim.org', sub: 'We reply within 24 hours' },
-              { icon: Clock, label: 'Service Times', value: 'Sun: 7am & 10am', sub: 'Wed & Fri: 5pm' },
+              { icon: MapPin, label: 'Address', value: pc.contact_address, sub: pc.contact_address_sub },
+              { icon: Phone, label: 'Phone', value: pc.contact_phone, sub: pc.contact_phone_hours },
+              { icon: Mail, label: 'Email', value: pc.contact_email, sub: pc.contact_email_note },
+              { icon: Clock, label: 'Service Times', value: pc.contact_service_times, sub: pc.contact_service_times_sub },
             ].map((item) => (
               <div key={item.label} className="bg-white rounded-2xl p-6 shadow-sm border border-amber-100">
                 <item.icon size={22} className="text-amber-500 mb-3" />

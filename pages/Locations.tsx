@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MapPin, Phone, Mail, Clock, Star } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { firebaseQuery, getCollection } from '../lib/firebase';
+import { usePageContent } from '../lib/usePageContent';
 
 interface Location {
   id: string;
@@ -19,16 +20,22 @@ interface Location {
 }
 
 export default function Locations() {
+  const pc = usePageContent('locations', {
+    hero_title: 'Our Locations',
+    hero_subtitle: 'Find Us Near You',
+    hero_description: 'DFIM is spreading across Nigeria. Find a branch near you and join the family.',
+    hero_bg_image: 'https://images.pexels.com/photos/2570139/pexels-photo-2570139.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from('locations')
-      .select('*')
-      .order('is_headquarters', { ascending: false })
-      .then(({ data }) => {
-        if (data) setLocations(data);
+    getCollection<Location>('locations', [
+      firebaseQuery.orderBy('is_headquarters', 'desc'),
+    ])
+      .then(setLocations)
+      .catch(() => setLocations([]))
+      .finally(() => {
         setLoading(false);
       });
   }, []);
@@ -42,16 +49,16 @@ export default function Locations() {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('https://images.pexels.com/photos/2570139/pexels-photo-2570139.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Find Us Near You</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Our Locations</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            DFIM is spreading across Nigeria. Find a branch near you and join the family.
+            {pc.hero_description}
           </p>
         </div>
       </section>
@@ -109,8 +116,8 @@ export default function Locations() {
                     <div className="bg-slate-800 flex items-center justify-center min-h-64 lg:min-h-0">
                       <div className="text-center p-8">
                         <MapPin size={48} className="text-amber-400 mx-auto mb-4" />
-                        <p className="text-gray-300 text-sm">15 Faith Avenue, GRA</p>
-                        <p className="text-gray-400 text-sm">Port Harcourt, Rivers State</p>
+                        <p className="text-gray-300 text-sm">1 Dominion Avenue, Onireke</p>
+                        <p className="text-gray-400 text-sm">Opposite Ojo Military Cantonment, Lagos</p>
                         {hq.google_maps_url && (
                           <a href={hq.google_maps_url} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold text-sm rounded-xl transition-colors">
                             Open in Maps

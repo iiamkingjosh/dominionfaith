@@ -1,10 +1,17 @@
 import { BookOpen, Building2, Home, ArrowRight } from 'lucide-react';
+import { usePageContent } from '../lib/usePageContent';
 
 interface MinistriesProps {
   onNavigate: (href: string) => void;
 }
 
 export default function Ministries({ onNavigate }: MinistriesProps) {
+  const pc = usePageContent('ministries', {
+    hero_title: 'Our Ministries',
+    hero_subtitle: 'Kingdom Work',
+    hero_description: 'Every arm of DFIM exists with a singular purpose — transforming lives and advancing the Kingdom of God.',
+    hero_bg_image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   const ministries = [
     {
       icon: BookOpen,
@@ -38,17 +45,15 @@ export default function Ministries({ onNavigate }: MinistriesProps) {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Kingdom Work</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Our Ministries</h1>
-          <p className="text-gray-300 text-xl leading-relaxed">
-            Every arm of DFIM exists with a singular purpose — transforming lives and advancing the Kingdom of God.
-          </p>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
+          <p className="text-gray-300 text-xl leading-relaxed">{pc.hero_description}</p>
         </div>
       </section>
 

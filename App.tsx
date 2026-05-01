@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
+import Admin from './pages/Admin';
 import Home from './pages/Home';
 import About from './pages/About';
 import Vision from './pages/Vision';
@@ -27,14 +28,17 @@ function getSearchParams(href: string) {
 }
 
 export default function App() {
-  const [currentPath, setCurrentPath] = useState('/');
-  const [searchParams, setSearchParams] = useState<URLSearchParams | undefined>(undefined);
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname || '/');
+  const [searchParams, setSearchParams] = useState<URLSearchParams | undefined>(
+    () => window.location.search ? new URLSearchParams(window.location.search) : undefined
+  );
 
   const navigate = (href: string) => {
     const base = getBasePath(href);
     const params = getSearchParams(href);
     setCurrentPath(base);
     setSearchParams(params);
+    window.history.pushState(null, '', href);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const hash = href.split('#')[1];
@@ -47,8 +51,16 @@ export default function App() {
   };
 
   useEffect(() => {
-    const titleEl = document.querySelector('title');
-    if (titleEl) titleEl.textContent = 'Dominion Faith International Ministry';
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname || '/');
+      setSearchParams(window.location.search ? new URLSearchParams(window.location.search) : undefined);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Dominion Faith International Ministry';
   }, []);
 
   const renderPage = () => {
@@ -68,12 +80,14 @@ export default function App() {
       case '/contact': return <Contact />;
       case '/locations': return <Locations />;
       case '/live': return <Live />;
+      case '/admin': return <Admin />;
       default: return <Home onNavigate={navigate} />;
     }
   };
 
-  const noFooterPages = ['/live'];
-  const showFooter = !noFooterPages.includes(currentPath);
+  const isAdmin = currentPath === '/admin';
+
+  if (isAdmin) return <Admin />;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -81,7 +95,7 @@ export default function App() {
       <main className="flex-1">
         {renderPage()}
       </main>
-      {showFooter && <Footer onNavigate={navigate} />}
+      {currentPath !== '/live' && <Footer onNavigate={navigate} />}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Music, UserCheck, Camera, Flame, Heart, Shield } from 'lucide-react';
+import { usePageContent } from '../lib/usePageContent';
 
 const departments = [
   {
@@ -61,22 +62,28 @@ const colorMap: Record<string, string> = {
 };
 
 export default function Departments() {
+  const pc = usePageContent('departments', {
+    hero_title: 'Departments',
+    hero_subtitle: 'Serve Your Calling',
+    hero_description: 'Find your place of service. Every department is a ministry, and every member matters.',
+    hero_bg_image: 'https://images.pexels.com/photos/1184512/pexels-photo-1184512.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   return (
     <div className="min-h-screen bg-white pt-16">
       {/* Hero */}
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('https://images.pexels.com/photos/1184512/pexels-photo-1184512.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.75) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Serve Your Calling</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Departments</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            Find your place of service. Every department is a ministry, and every member matters.
+            {pc.hero_description}
           </p>
         </div>
       </section>

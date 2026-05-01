@@ -1,4 +1,5 @@
 import { Heart, Banknote, Star, Shield, CheckCircle } from 'lucide-react';
+import { usePageContent } from '../lib/usePageContent';
 
 const givingTypes = [
   {
@@ -21,29 +22,46 @@ const givingTypes = [
   },
 ];
 
-const bankDetails = [
-  { bank: 'First Bank Nigeria', accountName: 'Dominion Faith Intl Ministry', accountNumber: '1234567890', currency: 'NGN' },
-  { bank: 'Access Bank', accountName: 'Dominion Faith Intl Ministry', accountNumber: '0987654321', currency: 'NGN' },
-  { bank: 'GTBank', accountName: 'DFIM Missions Fund', accountNumber: '1122334455', currency: 'NGN' },
-];
-
 export default function Give() {
+  const pc = usePageContent('give', {
+    hero_title: 'Give Online',
+    hero_subtitle: 'Kingdom Giving',
+    hero_description: 'Every gift you sow is an investment in the Kingdom of God. Thank you for your faithfulness.',
+    hero_bg_image: 'https://images.pexels.com/photos/1370298/pexels-photo-1370298.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    give_scripture: '"Give, and it shall be given to you: good measure, pressed down, shaken together, and running over..."',
+    give_scripture_ref: 'Luke 6:38',
+    bank1_name: 'First Bank Nigeria',
+    bank1_account_name: 'Dominion Faith Intl Ministry',
+    bank1_account_number: '1234567890',
+    bank2_name: 'Access Bank',
+    bank2_account_name: 'Dominion Faith Intl Ministry',
+    bank2_account_number: '0987654321',
+    bank3_name: 'GTBank',
+    bank3_account_name: 'DFIM Missions Fund',
+    bank3_account_number: '1122334455',
+  });
+
+  const bankDetails = [
+    { bank: pc.bank1_name, accountName: pc.bank1_account_name, accountNumber: pc.bank1_account_number, currency: 'NGN' },
+    { bank: pc.bank2_name, accountName: pc.bank2_account_name, accountNumber: pc.bank2_account_number, currency: 'NGN' },
+    { bank: pc.bank3_name, accountName: pc.bank3_account_name, accountNumber: pc.bank3_account_number, currency: 'NGN' },
+  ];
   return (
     <div className="min-h-screen bg-white pt-16">
       {/* Hero */}
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('https://images.pexels.com/photos/1370298/pexels-photo-1370298.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Kingdom Giving</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Give Online</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed max-w-2xl mx-auto">
-            Every gift you sow is an investment in the Kingdom of God. Thank you for your faithfulness.
+            {pc.hero_description}
           </p>
         </div>
       </section>
@@ -51,10 +69,8 @@ export default function Give() {
       {/* Scripture Banner */}
       <section className="py-12 bg-amber-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-2xl text-slate-800 font-light italic leading-relaxed">
-            "Give, and it shall be given to you: good measure, pressed down, shaken together, and running over..."
-          </p>
-          <p className="text-amber-600 font-semibold mt-3">— Luke 6:38</p>
+          <p className="text-2xl text-slate-800 font-light italic leading-relaxed">{pc.give_scripture}</p>
+          <p className="text-amber-600 font-semibold mt-3">— {pc.give_scripture_ref}</p>
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Calendar, MapPin, Clock, ArrowRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { firebaseQuery, getCollection } from '../lib/firebase';
+import { usePageContent } from '../lib/usePageContent';
 
 interface Event {
   id: string;
@@ -14,19 +15,59 @@ interface Event {
   is_featured: boolean;
 }
 
+const defaultEvents: Event[] = [
+  {
+    id: '1',
+    title: 'Champions Summit 2026',
+    description: 'Our flagship annual conference bringing together believers, leaders, and ministers for three days of intensive teaching, worship, and impartation. This year\'s theme: "Arise and Dominate."',
+    start_date: '2026-06-13',
+    end_date: '2026-06-15',
+    location_name: '1 Dominion Avenue, Onireke, Lagos',
+    image_url: 'https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=800',
+    registration_url: '',
+    is_featured: true,
+  },
+  {
+    id: '2',
+    title: '21 Days of Prayer & Fasting',
+    description: 'Join the entire DFIM family for a corporate season of prayer and fasting. Daily 5 AM and 6 PM prayer sessions at all branches, with special evening teachings every Friday.',
+    start_date: '2026-07-01',
+    end_date: '2026-07-21',
+    location_name: 'All DFIM Branches',
+    image_url: 'https://images.pexels.com/photos/2341290/pexels-photo-2341290.jpeg?auto=compress&cs=tinysrgb&w=800',
+    registration_url: '',
+    is_featured: true,
+  },
+  {
+    id: '3',
+    title: 'School of Ministry Graduation 2026',
+    description: 'Celebrating the graduating class of the DFIM School of Ministry. A landmark ceremony honouring men and women who have completed their training and are ready to be released into Kingdom assignments.',
+    start_date: '2026-08-22',
+    end_date: null,
+    location_name: '1 Dominion Avenue, Onireke, Lagos',
+    image_url: 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800',
+    registration_url: '',
+    is_featured: false,
+  },
+];
+
 export default function Events() {
+  const pc = usePageContent('events', {
+    hero_title: 'Upcoming Events',
+    hero_subtitle: 'Mark Your Calendar',
+    hero_description: 'Life-changing gatherings designed to build, inspire, and release you into your destiny.',
+    hero_bg_image: 'https://images.pexels.com/photos/1656684/pexels-photo-1656684.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from('events')
-      .select('*')
-      .order('start_date', { ascending: true })
-      .then(({ data }) => {
-        if (data) setEvents(data);
-        setLoading(false);
-      });
+    getCollection<Event>('events', [
+      firebaseQuery.orderBy('start_date', 'asc'),
+    ])
+      .then((data) => setEvents(data.length ? data : defaultEvents))
+      .catch(() => setEvents(defaultEvents))
+      .finally(() => setLoading(false));
   }, []);
 
   const formatDate = (d: string) =>
@@ -45,16 +86,16 @@ export default function Events() {
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('https://images.pexels.com/photos/1656684/pexels-photo-1656684.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">Mark Your Calendar</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">Upcoming Events</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            Life-changing gatherings designed to build, inspire, and release you into your destiny.
+            {pc.hero_description}
           </p>
         </div>
       </section>

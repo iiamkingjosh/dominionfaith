@@ -1,4 +1,5 @@
 import { Home, MapPin, Clock, Users, Heart, BookOpen } from 'lucide-react';
+import { usePageContent } from '../lib/usePageContent';
 
 const centers = [
   { zone: 'GRA Zone', location: 'GRA, Port Harcourt', coordinator: 'Deacon James Nwachukwu', day: 'Tuesday', time: '6:00 PM', contact: '+234 803 000 1001' },
@@ -17,22 +18,28 @@ const benefits = [
 ];
 
 export default function HouseFellowship() {
+  const pc = usePageContent('house-fellowship', {
+    hero_title: 'House Care Fellowship',
+    hero_subtitle: 'The Church in Your Home',
+    hero_description: 'Community, discipleship, and kingdom impact — one home at a time.',
+    hero_bg_image: 'https://images.pexels.com/photos/3812437/pexels-photo-3812437.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  });
   return (
     <div className="min-h-screen bg-white pt-16">
       {/* Hero */}
       <section
         className="relative py-32"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('https://images.pexels.com/photos/3812437/pexels-photo-3812437.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+          backgroundImage: `linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(120,53,15,0.6) 100%), url('${pc.hero_bg_image}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">The Church in Your Home</span>
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">House Care Fellowship</h1>
+          <span className="inline-block text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">{pc.hero_subtitle}</span>
+          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">{pc.hero_title}</h1>
           <p className="text-gray-300 text-xl leading-relaxed">
-            Community, discipleship, and kingdom impact — one home at a time.
+            {pc.hero_description}
           </p>
         </div>
       </section>
