@@ -432,11 +432,13 @@ export default function PageContentPanel() {
   const [content, setContent] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState('');
   const [activeSection, setActiveSection] = useState(0);
 
   useEffect(() => {
     if (!selectedPage) return;
     setSaved(false);
+    setSaveError('');
     setActiveSection(0);
     getDocument<Record<string, string>>('page_content', selectedPage.id)
       .then(data => setContent(data ? { ...selectedPage.defaults, ...data } : { ...selectedPage.defaults }))
@@ -446,11 +448,18 @@ export default function PageContentPanel() {
   const save = async () => {
     if (!selectedPage) return;
     setSaving(true);
+    setSaveError('');
     try {
       await setDocument('page_content', selectedPage.id, content);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    } finally { setSaving(false); }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      setSaveError(`Save failed: ${msg}`);
+      console.error('[PageContentPanel] Save error:', err);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleChange = (key: string, value: string) => {
@@ -489,18 +498,23 @@ export default function PageContentPanel() {
           ) : (
             <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
               {/* Header */}
-              <div className="px-6 py-4 border-b bg-slate-50 flex items-center justify-between">
-                <div>
-                  <h3 className="font-bold text-slate-900">{selectedPage.label}</h3>
-                  <p className="text-xs text-gray-400">/{selectedPage.id === 'home' ? '' : selectedPage.id}</p>
+              <div className="px-6 py-4 border-b bg-slate-50">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-slate-900">{selectedPage.label}</h3>
+                    <p className="text-xs text-gray-400">/{selectedPage.id === 'home' ? '' : selectedPage.id}</p>
+                  </div>
+                  <button
+                    onClick={save}
+                    disabled={saving}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${saved ? 'bg-green-500 text-white' : saveError ? 'bg-red-500 text-white' : 'bg-amber-500 hover:bg-amber-400 text-slate-900'}`}
+                  >
+                    <Check size={14} /> {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Changes'}
+                  </button>
                 </div>
-                <button
-                  onClick={save}
-                  disabled={saving}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${saved ? 'bg-green-500 text-white' : 'bg-amber-500 hover:bg-amber-400 text-slate-900'}`}
-                >
-                  <Check size={14} /> {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Changes'}
-                </button>
+                {saveError && (
+                  <p className="text-red-500 text-xs mt-2">{saveError}</p>
+                )}
               </div>
 
               {/* Section Tabs */}

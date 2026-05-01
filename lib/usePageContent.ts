@@ -12,7 +12,9 @@ export function usePageContent<T extends Record<string, string>>(
       .then((data) => {
         if (data) setContent({ ...defaults, ...data } as T);
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error(`[usePageContent] Failed to load "${pageId}":`, err);
+      });
   }, [pageId]);
 
   return content;

@@ -52,7 +52,7 @@ export async function getFirstFromCollection<T>(
 
 export async function getDocument<T>(collectionName: string, id: string): Promise<T | null> {
   const snapshot = await getDoc(doc(requireDb(), collectionName, id));
-  return snapshot.exists() ? ({ id: snapshot.id, ...snapshot.data() } as T) : null;
+  return snapshot.exists() ? (snapshot.data() as T) : null;
 }
 
 export async function addToCollection<T extends Record<string, unknown>>(collectionName: string, data: T) {
