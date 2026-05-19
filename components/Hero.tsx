@@ -50,7 +50,6 @@ export default function Hero() {
     <section
       ref={ref}
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-24"
-      aria-label="Hero"
     >
       {/* Animated gradient mesh — defined in globals.css */}
       <div aria-hidden="true" className="hero-bg absolute inset-0" />
@@ -164,7 +163,7 @@ export default function Hero() {
             href="/live"
             className="flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white sm:w-auto"
             style={{
-              background: '#F61F27',
+              background: 'var(--color-give)',
               boxShadow:  '0 4px 24px rgba(246,31,39,0.4)',
             }}
           >
