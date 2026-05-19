@@ -49,7 +49,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-24"
+      className="relative flex min-h-screen items-center overflow-hidden px-6 py-24 md:px-16 lg:px-24"
     >
       {/* Animated gradient mesh — defined in globals.css */}
       <div aria-hidden="true" className="hero-bg absolute inset-0" />
@@ -59,7 +59,7 @@ export default function Hero() {
 
       {/* Content column */}
       <motion.div
-        className="relative z-10 flex max-w-[780px] flex-col items-center text-center"
+        className="relative z-10 flex w-full flex-col"
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
@@ -67,7 +67,7 @@ export default function Hero() {
         {/* Eyebrow pill */}
         <motion.div
           variants={item}
-          className="mb-7 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
+          className="mb-7 self-start inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
           style={{
             background:  'rgba(255,255,255,0.06)',
             borderColor: 'rgba(255,255,255,0.10)',
@@ -94,7 +94,7 @@ export default function Hero() {
         {/* Mission statement */}
         <motion.p
           variants={item}
-          className="mb-10 max-w-[600px] italic leading-[1.75] text-white/55"
+          className="mb-10 max-w-2xl italic leading-[1.75] text-white/55"
           style={{ fontSize: 'var(--hero-mission-size)' }}
         >
           For over a decade, we have been committed to raising believers who do
@@ -112,7 +112,7 @@ export default function Hero() {
         {/* Service time cards */}
         <motion.div
           variants={item}
-          className="mb-10 flex flex-wrap justify-center gap-3"
+          className="mb-10 flex flex-wrap gap-3"
         >
           {SERVICES.map((s) => (
             <div
@@ -147,7 +147,7 @@ export default function Hero() {
         {/* CTA buttons */}
         <motion.div
           variants={item}
-          className="mb-6 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center"
+          className="mb-6 flex w-full flex-col gap-3 sm:flex-row"
         >
           <Link
             href="/visit"
@@ -175,7 +175,7 @@ export default function Hero() {
         {/* Location */}
         <motion.p
           variants={item}
-          className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-white/30"
+          className="self-start flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-white/30"
         >
           <svg
             width="11" height="11"
