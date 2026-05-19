@@ -18,6 +18,8 @@ const LOCATION_DISPLAY =
 const LOCATION_MAPS_QUERY = '1+Dominion+Avenue+Onireke+Lagos+Nigeria'
 const PHONE_DISPLAY = '+234 703 454 3971'
 const PHONE_TEL     = '+2347034543971'
+// TODO(production): replace with Maps Embed API URL + API key to avoid
+// the "can't load Google Maps" banner: https://developers.google.com/maps/documentation/embed
 const MAPS_EMBED_URL =
   `https://maps.google.com/maps?q=${LOCATION_MAPS_QUERY}&output=embed`
 const DIRECTIONS_URL =
