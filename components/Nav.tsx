@@ -247,8 +247,9 @@ export default function Nav() {
                   setActiveDropdown((a) => (a === item.label ? null : item.label))
                 }}
               >
-                <span
-                  className={`flex cursor-pointer items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors select-none ${
+                <button
+                  type="button"
+                  className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors select-none ${
                     pathname.startsWith(item.href)
                       ? 'bg-white/15 text-white'
                       : 'text-white/75 hover:bg-white/10 hover:text-white'
@@ -261,7 +262,7 @@ export default function Nav() {
                       activeDropdown === item.label ? 'rotate-180' : ''
                     }`}
                   />
-                </span>
+                </button>
 
                 <AnimatePresence>
                   {activeDropdown === item.label && (
@@ -344,7 +345,7 @@ export default function Nav() {
         <button
           className="ml-auto flex flex-col gap-1.5 p-2 md:hidden"
           onClick={() => setIsMobileOpen((o) => !o)}
-          aria-label="Open menu"
+          aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMobileOpen}
         >
           <motion.span
@@ -375,7 +376,7 @@ export default function Nav() {
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed inset-0 z-40 flex flex-col p-6"
+            className="fixed inset-0 z-[60] flex flex-col p-6"
             style={{
               background:           'rgba(8,8,28,0.95)',
               backdropFilter:       'blur(24px)',
@@ -395,7 +396,7 @@ export default function Nav() {
               </Link>
               <button
                 onClick={() => setIsMobileOpen(false)}
-                aria-label="Close menu"
+                aria-label="Close navigation"
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10"
               >
                 <X size={18} className="text-white" />
