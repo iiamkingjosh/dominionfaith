@@ -14,4 +14,11 @@
   --nav-bg: rgba(255, 255, 255, 0.08);
   --nav-bg-scrolled: rgba(255, 255, 255, 0.12);
   --nav-border: rgba(255, 255, 255, 0.12);
+
+  /* Hero tokens */
+  --text-hero: clamp(52px, 7vw, 96px);
+  --hero-bg: #07071f;
+  --hero-card-bg: rgba(255, 255, 255, 0.07);
+  --hero-card-border: rgba(255, 255, 255, 0.13);
+  --hero-mission-size: 13px;
 }
