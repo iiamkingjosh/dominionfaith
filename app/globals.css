@@ -33,3 +33,28 @@
   50%  { filter: hue-rotate(8deg) brightness(1.05); }
   100% { filter: hue-rotate(-4deg) brightness(0.97); }
 }
+
+/* ── Double-bezel card ─────────────────────────────── */
+/* The outer ring is created via stacked box-shadow — no wrapper div needed. */
+/* Gap colour (rgba(8,8,28,0.7)) approximates the dark page background. */
+.card-double-bezel {
+  border: 1px solid var(--card-bezel-inner);
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 0 var(--card-bezel-gap) rgba(8, 8, 28, 0.7),
+    0 0 0 calc(var(--card-bezel-gap) + 1px) var(--card-bezel-outer),
+    var(--card-shadow);
+  transition:
+    box-shadow 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.card-double-bezel:hover {
+  box-shadow:
+    0 0 0 var(--card-bezel-gap) rgba(8, 8, 28, 0.7),
+    0 0 0 calc(var(--card-bezel-gap) + 1px) var(--card-bezel-outer),
+    var(--card-shadow-hover);
+}
