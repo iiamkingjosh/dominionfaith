@@ -183,6 +183,11 @@ export default function Nav() {
     return () => document.removeEventListener('click', handler)
   }, [activeDropdown])
 
+  // Clear close timer on unmount to prevent state updates on an unmounted component
+  useEffect(() => () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+  }, [])
+
   const handleDropdownEnter = (label: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
     setActiveDropdown(label)
