@@ -59,7 +59,7 @@ export default function Hero() {
 
       {/* Content column */}
       <motion.div
-        className="relative z-10 flex w-full flex-col"
+        className="relative z-10 flex w-full flex-col items-center text-center"
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
@@ -67,7 +67,7 @@ export default function Hero() {
         {/* Eyebrow pill */}
         <motion.div
           variants={item}
-          className="mb-7 self-start inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
+          className="mb-7 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
           style={{
             background:  'rgba(255,255,255,0.06)',
             borderColor: 'rgba(255,255,255,0.10)',
@@ -112,7 +112,7 @@ export default function Hero() {
         {/* Service time cards */}
         <motion.div
           variants={item}
-          className="mb-10 flex flex-wrap gap-3"
+          className="mb-10 flex flex-wrap justify-center gap-3"
         >
           {SERVICES.map((s) => (
             <div
@@ -147,7 +147,7 @@ export default function Hero() {
         {/* CTA buttons */}
         <motion.div
           variants={item}
-          className="mb-6 flex w-full flex-col gap-3 sm:flex-row"
+          className="mb-6 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center"
         >
           <Link
             href="/visit"
@@ -175,7 +175,7 @@ export default function Hero() {
         {/* Location */}
         <motion.p
           variants={item}
-          className="self-start flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-white/30"
+          className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-white/30"
         >
           <svg
             width="11" height="11"
