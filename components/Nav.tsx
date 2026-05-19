@@ -344,17 +344,17 @@ export default function Nav() {
         >
           <motion.span
             className="block h-0.5 w-5 origin-center rounded-sm bg-white"
-            animate={isMobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+            animate={shouldReduceMotion ? undefined : (isMobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 })}
             transition={{ duration: 0.2, ease: EASE_OUT }}
           />
           <motion.span
             className="block h-0.5 w-3.5 rounded-sm bg-white"
-            animate={isMobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+            animate={shouldReduceMotion ? undefined : (isMobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 })}
             transition={{ duration: 0.15, ease: EASE_OUT }}
           />
           <motion.span
             className="block h-0.5 w-5 origin-center rounded-sm bg-white"
-            animate={isMobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+            animate={shouldReduceMotion ? undefined : (isMobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 })}
             transition={{ duration: 0.2, ease: EASE_OUT }}
           />
         </button>
@@ -364,7 +364,9 @@ export default function Nav() {
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
-            variants={overlayVariants}
+            variants={shouldReduceMotion
+              ? { open: { opacity: 1, transition: { duration: 0.2 } }, closed: { opacity: 0, transition: { duration: 0.15 } } }
+              : overlayVariants}
             initial="closed"
             animate="open"
             exit="closed"
