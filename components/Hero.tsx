@@ -154,7 +154,7 @@ export default function Hero() {
             className="w-full rounded-full px-8 py-3.5 text-center text-sm font-bold text-white sm:w-auto"
             style={{
               background: 'var(--color-primary)',
-              boxShadow:  '0 4px 24px rgba(42,47,170,0.5)',
+              boxShadow:  '0 4px 24px rgba(42,47,170,0.5)', /* --color-primary */
             }}
           >
             Plan Your Visit
@@ -164,7 +164,7 @@ export default function Hero() {
             className="flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white sm:w-auto"
             style={{
               background: 'var(--color-give)',
-              boxShadow:  '0 4px 24px rgba(246,31,39,0.4)',
+              boxShadow:  '0 4px 24px rgba(246,31,39,0.4)', /* --color-give */
             }}
           >
             <span className="h-[7px] w-[7px] animate-pulse rounded-full bg-white" />

@@ -4,7 +4,7 @@ import Nav from '../components/Nav'
 jest.mock('next/navigation', () => ({ usePathname: () => '/' }))
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} alt={props.alt ?? ''} />,
+  default: ({ priority, ...props }: any) => <img {...props} alt={props.alt ?? ''} />,
 }))
 jest.mock('next/link', () => ({
   __esModule: true,
