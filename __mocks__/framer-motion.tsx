@@ -33,4 +33,6 @@ const AnimatePresence = ({ children }: AnyProps) => (
 
 const useReducedMotion = () => false
 
-export { motion, AnimatePresence, useReducedMotion }
+const useInView = () => true
+
+export { motion, AnimatePresence, useReducedMotion, useInView }
