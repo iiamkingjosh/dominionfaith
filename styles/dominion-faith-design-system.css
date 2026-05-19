@@ -1,0 +1,17 @@
+:root {
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Brand colours */
+  --color-primary: #2A2FAA;
+  --color-give: #F61F27;
+  --color-live: #F9A916;
+
+  /* Nav tokens */
+  --nav-height: 64px;
+  --nav-blur: 20px;
+  --nav-bg: rgba(255, 255, 255, 0.08);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.12);
+  --nav-border: rgba(255, 255, 255, 0.12);
+}
