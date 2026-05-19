@@ -6,10 +6,12 @@ import { motion } from 'framer-motion'
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const SERVICES = [
-  { day: 'Sunday',    name: 'Temple Celebration',  time: '9am' },
-  { day: 'Wednesday', name: 'Housecare Fellowship', time: '7pm' },
-  { day: 'Friday',    name: 'Dominion Service',     time: '5pm' },
+  { day: 'Sunday',    name: 'Temple Celebration',  time: '9am', dow: 0, hour: 9,  byday: 'SU' },
+  { day: 'Wednesday', name: 'Housecare Fellowship', time: '7pm', dow: 3, hour: 19, byday: 'WE' },
+  { day: 'Friday',    name: 'Dominion Service',     time: '5pm', dow: 5, hour: 17, byday: 'FR' },
 ] as const
+
+const SERVICE_DURATION_MS = 2 * 60 * 60 * 1000 // 2 hours
 
 const LOCATION_DISPLAY =
   '1 Dominion Avenue, Onireke, Opposite Ojo Barrack, Lagos, Nigeria'
@@ -23,8 +25,12 @@ const DIRECTIONS_URL =
 
 // ── Calendar helpers ──────────────────────────────────────────────────────────
 
-function fmtIcs(d: Date): string {
-  return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+function fmtLocal(d: Date): string {
+  const p = (n: number) => String(n).padStart(2, '0')
+  return (
+    `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}` +
+    `T${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`
+  )
 }
 
 function nextWeekday(dow: number): Date {
@@ -35,19 +41,14 @@ function nextWeekday(dow: number): Date {
 }
 
 function makeIcs(): string {
-  const defs = [
-    { dow: 0, hour: 9,  byday: 'SU', name: 'Temple Celebration — Dominion Faith' },
-    { dow: 3, hour: 19, byday: 'WE', name: 'Housecare Fellowship — Dominion Faith' },
-    { dow: 5, hour: 17, byday: 'FR', name: 'Dominion Service — Dominion Faith' },
-  ]
-  const vevents = defs.map(({ dow, hour, byday, name }) => {
+  const vevents = SERVICES.map(({ dow, hour, byday, name }) => {
     const start = nextWeekday(dow)
     start.setHours(hour, 0, 0, 0)
-    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000)
+    const end = new Date(start.getTime() + SERVICE_DURATION_MS)
     return [
       'BEGIN:VEVENT',
-      `DTSTART:${fmtIcs(start)}`,
-      `DTEND:${fmtIcs(end)}`,
+      `DTSTART;TZID=Africa/Lagos:${fmtLocal(start)}`,
+      `DTEND;TZID=Africa/Lagos:${fmtLocal(end)}`,
       `RRULE:FREQ=WEEKLY;BYDAY=${byday}`,
       `SUMMARY:${name}`,
       `LOCATION:${LOCATION_DISPLAY}`,
@@ -69,25 +70,24 @@ function downloadIcs(): void {
   const a    = document.createElement('a')
   a.href     = url
   a.download = 'dominion-faith-services.ics'
+  document.body.appendChild(a)
   a.click()
+  document.body.removeChild(a)
   URL.revokeObjectURL(url)
 }
 
-const DOW_MAP:   Record<string, number> = { Sunday: 0, Wednesday: 3, Friday: 5 }
-const HOUR_MAP:  Record<string, number> = { '9am': 9, '7pm': 19, '5pm': 17 }
-const BYDAY_MAP: Record<string, string> = { Sunday: 'SU', Wednesday: 'WE', Friday: 'FR' }
-
-function googleCalUrl(s: { day: string; name: string; time: string }): string {
-  const start = nextWeekday(DOW_MAP[s.day])
-  start.setHours(HOUR_MAP[s.time], 0, 0, 0)
-  const end = new Date(start.getTime() + 2 * 60 * 60 * 1000)
+function googleCalUrl(s: typeof SERVICES[number]): string {
+  const start = nextWeekday(s.dow)
+  start.setHours(s.hour, 0, 0, 0)
+  const end = new Date(start.getTime() + SERVICE_DURATION_MS)
   const params = new URLSearchParams({
     action:   'TEMPLATE',
     text:     `${s.name} — Dominion Faith`,
-    dates:    `${fmtIcs(start).replace('Z', '')}/${fmtIcs(end).replace('Z', '')}`,
+    dates:    `${fmtLocal(start)}/${fmtLocal(end)}`,
     details:  `${s.day} service at Dominion Faith International Ministry`,
     location: LOCATION_DISPLAY,
-    recur:    `RRULE:FREQ=WEEKLY;BYDAY=${BYDAY_MAP[s.day]}`,
+    recur:    `RRULE:FREQ=WEEKLY;BYDAY=${s.byday}`,
+    ctz:      'Africa/Lagos',
   })
   return `https://calendar.google.com/calendar/r/eventedit?${params.toString()}`
 }
