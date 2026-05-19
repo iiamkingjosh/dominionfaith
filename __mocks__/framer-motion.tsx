@@ -33,4 +33,4 @@ const AnimatePresence = ({ children }: AnyProps) => (
 
 const useReducedMotion = () => false
 
-module.exports = { motion, AnimatePresence, useReducedMotion }
+export { motion, AnimatePresence, useReducedMotion }
