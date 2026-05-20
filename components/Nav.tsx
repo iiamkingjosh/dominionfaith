@@ -409,7 +409,7 @@ export default function Nav() {
             initial="closed"
             animate="open"
             exit="closed"
-            className="fixed inset-0 z-[60] flex flex-col p-6"
+            className="pointer-events-auto fixed inset-0 z-[60] flex flex-col p-6"
             style={{
               background:           'rgba(8,8,28,0.95)',
               backdropFilter:       'blur(24px)',
