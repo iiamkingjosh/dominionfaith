@@ -58,3 +58,13 @@
     0 0 0 calc(var(--card-bezel-gap) + 1px) var(--card-bezel-outer),
     var(--card-shadow-hover);
 }
+
+/* ── Sermon thumbnail overlay ──────────────────────── */
+.sermon-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(7, 7, 31, 0.92) 0%,
+    rgba(7, 7, 31, 0.5) 40%,
+    transparent 100%
+  );
+}

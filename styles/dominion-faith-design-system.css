@@ -30,4 +30,8 @@
   --card-bg: rgba(12, 12, 40, 0.85);
   --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   --card-shadow-hover: 0 24px 56px rgba(0, 0, 0, 0.6);
+
+  /* Sermon series badge */
+  --badge-series-bg: rgba(249, 169, 22, 0.18);
+  --badge-series-color: #F9A916;
 }
