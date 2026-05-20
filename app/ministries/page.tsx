@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import MinistriesFilter from '@/components/sections/ministries-filter'
 
 export const metadata: Metadata = {
@@ -75,13 +74,13 @@ export default function MinistriesPage() {
           <p className="mb-8 text-[14px] text-white/50">
             Have questions about any ministry or department? Our team is happy to guide you to the right fit.
           </p>
-          <Link
+          <a
             href="mailto:info@dominionfaith.com"
             className="inline-flex items-center gap-2 rounded-2xl px-8 py-4 text-sm font-bold text-white transition-opacity hover:opacity-85"
             style={{ background: 'linear-gradient(135deg, #2A2FAA 0%, #F9A916 100%)' }}
           >
             Contact Us
-          </Link>
+          </a>
         </div>
       </section>
     </main>
