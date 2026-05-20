@@ -54,6 +54,20 @@ describe('Nav', () => {
     expect(screen.getAllByText('Ministries').length).toBeGreaterThan(0)
   })
 
+  it('renders the Media dropdown trigger', () => {
+    render(<Nav />)
+    expect(screen.getAllByText('Media').length).toBeGreaterThan(0)
+  })
+
+  it('renders Media sub-items in the mobile overlay', () => {
+    render(<Nav />)
+    fireEvent.click(screen.getByLabelText('Open menu'))
+    fireEvent.click(screen.getByLabelText('Open Media submenu'))
+    expect(screen.getByText('Sermon Archive')).toBeInTheDocument()
+    expect(screen.getByText('Sermon Series')).toBeInTheDocument()
+    expect(screen.getAllByText(/Watch Live/i).length).toBeGreaterThan(0)
+  })
+
   it('renders Ministries sub-items in the mobile overlay', () => {
     render(<Nav />)
     fireEvent.click(screen.getByLabelText('Open menu'))

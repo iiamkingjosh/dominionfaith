@@ -27,7 +27,15 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'House Fellowship', href: '/house-fellowship' },
     ],
   },
-  { label: 'Media', href: '/media' },
+  {
+    label: 'Media',
+    href: '/media',
+    children: [
+      { label: 'Sermon Archive', href: '/media/sermons' },
+      { label: 'Sermon Series', href: '/media/series' },
+      { label: 'Watch Live', href: '/live' },
+    ],
+  },
   { label: 'Sermons', href: '/sermons' },
   { label: 'Events', href: '/events' },
   { label: 'Testimonies', href: '/testimonies' },
