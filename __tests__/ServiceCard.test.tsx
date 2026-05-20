@@ -64,7 +64,7 @@ describe('ServiceCard', () => {
   it('renders the Get Directions link pointing to Google Maps', () => {
     render(<ServiceCard />)
     const link = screen.getByRole('link', { name: /Get Directions/i })
-    expect(link).toHaveAttribute('href', expect.stringContaining('google.com/maps'))
+    expect(link).toHaveAttribute('href', 'https://maps.app.goo.gl/SjQqahPJix5dge9J8')
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })

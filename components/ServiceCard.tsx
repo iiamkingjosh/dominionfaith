@@ -15,15 +15,11 @@ const SERVICE_DURATION_MS = 2 * 60 * 60 * 1000 // 2 hours
 
 const LOCATION_DISPLAY =
   '1 Dominion Avenue, Onireke, Opposite Ojo Barrack, Lagos, Nigeria'
-const LOCATION_MAPS_QUERY = '1+Dominion+Avenue+Onireke+Lagos+Nigeria'
 const PHONE_DISPLAY = '+234 703 454 3971'
 const PHONE_TEL     = '+2347034543971'
-// TODO(production): replace with Maps Embed API URL + API key to avoid
-// the "can't load Google Maps" banner: https://developers.google.com/maps/documentation/embed
 const MAPS_EMBED_URL =
-  `https://maps.google.com/maps?q=${LOCATION_MAPS_QUERY}&output=embed`
-const DIRECTIONS_URL =
-  `https://www.google.com/maps/dir/?api=1&destination=${LOCATION_MAPS_QUERY}`
+  'https://maps.google.com/maps?q=Dominion+Faith+International+Ministry+Onireke+Opposite+Ojo+Barrack+Lagos+Nigeria&output=embed'
+const DIRECTIONS_URL = 'https://maps.app.goo.gl/SjQqahPJix5dge9J8'
 
 // ── Calendar helpers ──────────────────────────────────────────────────────────
 
