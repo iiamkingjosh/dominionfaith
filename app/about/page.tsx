@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import VisionSection from '@/components/sections/vision-section'
+import JoinProcessSection from '@/components/sections/join-process-section'
 
 export const metadata: Metadata = {
   title: 'About Us — Dominion Faith International Ministry',
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
-  return <VisionSection />
+  return (
+    <>
+      <VisionSection />
+      <JoinProcessSection />
+    </>
+  )
 }

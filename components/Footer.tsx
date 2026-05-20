@@ -62,19 +62,19 @@ const MINISTRY_LINKS = [
 const SOCIAL = [
   {
     label: 'Facebook',
-    href: 'https://facebook.com/dominionfaith',
+    href: 'https://www.facebook.com/share/1QQ7LvDf26/?mibextid=wwXIfr',
     icon: FacebookIcon,
     hoverColor: '#1877F2',
   },
   {
     label: 'Instagram',
-    href: 'https://instagram.com/dominionfaith',
+    href: 'https://www.instagram.com/dominionfaithministry?igsh=MWJ6OTAxOHBwdjc4dQ==',
     icon: InstagramIcon,
     hoverColor: '#E1306C',
   },
   {
     label: 'YouTube',
-    href: 'https://youtube.com/@dominionfaith',
+    href: 'https://youtube.com/@dominionfaithhq?si=uHIIcB2ptYFCzT5R',
     icon: YouTubeIcon,
     hoverColor: '#FF0000',
   },

@@ -217,19 +217,19 @@ export default function VisionSection() {
             {/* Year badge */}
             <FadeUp delay={0.1}>
               <div
-                className="flex flex-col gap-3 rounded-2xl p-7"
+                className="flex flex-col items-start gap-1 rounded-2xl p-7"
                 style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}
               >
+                <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/30">
+                  Founded
+                </span>
                 <span
-                  className="font-black leading-none text-white/15"
-                  style={{ fontSize: 'clamp(52px, 7vw, 88px)' }}
+                  className="font-black leading-none text-white/20"
+                  style={{ fontSize: '52px' }}
                   aria-hidden="true"
                 >
                   2006
                 </span>
-                <p className="text-[13px] leading-snug text-white/50">
-                  April 22nd — Dominion Faith International Ministry officially commissioned.
-                </p>
               </div>
             </FadeUp>
 
