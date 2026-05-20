@@ -31,7 +31,7 @@ export default function FeaturedSeries({ series }: { series: Series[] }) {
 
   return (
     <div className="relative w-full overflow-hidden rounded-3xl" style={{ minHeight: 360 }}>
-      <AnimatePresence custom={direction} mode="popLayout">
+      <AnimatePresence custom={direction}>
         <MotionDiv
           key={current.id}
           custom={direction}
