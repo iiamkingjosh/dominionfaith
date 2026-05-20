@@ -52,14 +52,7 @@ export default function JoinProcessSection() {
               style={{ fontSize: 'clamp(28px, 4vw, 56px)' }}
             >
               Join Our{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #2A2FAA 0%, #F61F27 50%, #F9A916 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+              <span style={{ color: '#F9A916' }}>
                 Church Family
               </span>
             </h2>
