@@ -206,9 +206,16 @@ export default function GiveSection() {
             Thank you, {form.name.split(' ')[0] || 'friend'}!
           </h2>
           <p className="mb-6 text-sm leading-relaxed text-white/55">
-            Your {TIERS.find(t => t.id === form.tier)?.label.toLowerCase()} of{' '}
-            <strong className="text-white/85">{displayAmount}</strong> has been received.
-            Heaven records every seed sown in faith. A confirmation will be sent to{' '}
+            {form.tier === 'monthly' && (
+              <>Your monthly partnership of <strong className="text-white/85">{displayAmount}</strong> has been received.</>
+            )}
+            {form.tier === 'honor-seed' && (
+              <>Your honor seed of <strong className="text-white/85">{displayAmount}</strong> to our dear Man of God has been received.</>
+            )}
+            {form.tier !== 'monthly' && form.tier !== 'honor-seed' && (
+              <>Your {TIERS.find(t => t.id === form.tier)?.label.toLowerCase()} of <strong className="text-white/85">{displayAmount}</strong> has been received.</>
+            )}
+            {' '}Heaven records every seed sown in faith. A confirmation will be sent to{' '}
             <strong className="text-white/85">{form.email}</strong>.
           </p>
           <button

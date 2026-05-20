@@ -24,14 +24,32 @@ const FILTERS: { id: Filter; label: string }[] = [
 const PAGE_SIZE = 6
 const MotionButton = motion.button
 
+function isPastEvent(event: ChurchEvent): boolean {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const checkDate = new Date((event.endDate ?? event.startDate) + 'T00:00:00')
+  return checkDate < today
+}
+
+function sortEvents(list: ChurchEvent[]): ChurchEvent[] {
+  return [...list].sort((a, b) => {
+    const aPast = isPastEvent(a)
+    const bPast = isPastEvent(b)
+    if (aPast !== bPast) return aPast ? 1 : -1
+    // Upcoming: ascending; past: most recent first
+    const dir = aPast ? -1 : 1
+    return dir * (new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+  })
+}
+
 export default function EventGrid({ events }: EventGridProps) {
   const [activeFilter, setActiveFilter] = useState<Filter>('all')
   const [visible, setVisible] = useState(PAGE_SIZE)
 
-  const filtered = activeFilter === 'all'
-    ? events
-    : events.filter(e => e.category === activeFilter)
-
+  const base = sortEvents(
+    activeFilter === 'all' ? events : events.filter(e => e.category === activeFilter)
+  )
+  const filtered = base
   const displayed = filtered.slice(0, visible)
   const hasMore   = filtered.length > visible
 
@@ -82,6 +100,7 @@ export default function EventGrid({ events }: EventGridProps) {
               key={event.id}
               event={event}
               index={i}
+              isPast={isPastEvent(event)}
             />
           ))}
         </AnimatePresence>

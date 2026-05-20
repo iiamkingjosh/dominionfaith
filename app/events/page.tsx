@@ -41,8 +41,8 @@ export default async function EventsPage() {
           Events
         </h1>
         <p className="mx-auto mt-3 max-w-md text-sm text-white/45">
-          27 events. Every month covered. From summits and retreats to vigils and
-          anniversaries — there is always something happening at Dominion Faith.
+          From worship nights to revival meetings and community gatherings, there's
+          always something impactful happening here. Come expecting transformation.
         </p>
       </div>
 
