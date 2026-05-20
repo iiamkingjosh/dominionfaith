@@ -39,36 +39,9 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Sermons', href: '/sermons' },
   { label: 'Events', href: '/events' },
   { label: 'Testimonies', href: '/testimonies' },
-  {
-    label: 'Locations',
-    href: '/locations',
-    children: [
-      { label: 'All Locations',    href: '/locations'         },
-      { label: 'House Fellowship', href: '/house-fellowship'  },
-      { label: 'Events & Services',href: '/events'            },
-      { label: 'Contact Us',       href: '/contact'           },
-    ],
-  },
-  {
-    label: 'Blog',
-    href: '/blog',
-    children: [
-      { label: 'All Posts',    href: '/blog'         },
-      { label: 'Testimonies',  href: '/testimonies'  },
-      { label: 'Events',       href: '/events'       },
-      { label: 'Media',        href: '/media'        },
-    ],
-  },
-  {
-    label: 'Contact',
-    href: '/contact',
-    children: [
-      { label: 'Send a Message', href: '/contact'    },
-      { label: 'Give & Partner', href: '/give'       },
-      { label: 'Find a Church',  href: '/locations'  },
-      { label: 'Watch Live',     href: '/live'       },
-    ],
-  },
+  { label: 'Locations', href: '/locations' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 // ── Framer Motion variants ────────────────────────────────────────────────────

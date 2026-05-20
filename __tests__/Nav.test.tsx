@@ -68,31 +68,6 @@ describe('Nav', () => {
     expect(screen.getAllByText(/Watch Live/i).length).toBeGreaterThan(0)
   })
 
-  it('renders Blog sub-items in the mobile overlay', () => {
-    render(<Nav />)
-    fireEvent.click(screen.getByLabelText('Open menu'))
-    fireEvent.click(screen.getByLabelText('Open Blog submenu'))
-    expect(screen.getByText('All Posts')).toBeInTheDocument()
-    expect(screen.getAllByText('Testimonies').length).toBeGreaterThan(0)
-  })
-
-  it('renders Locations sub-items in the mobile overlay', () => {
-    render(<Nav />)
-    fireEvent.click(screen.getByLabelText('Open menu'))
-    fireEvent.click(screen.getByLabelText('Open Locations submenu'))
-    expect(screen.getByText('All Locations')).toBeInTheDocument()
-    expect(screen.getByText('House Fellowship')).toBeInTheDocument()
-  })
-
-  it('renders Contact sub-items in the mobile overlay', () => {
-    render(<Nav />)
-    fireEvent.click(screen.getByLabelText('Open menu'))
-    fireEvent.click(screen.getByLabelText('Open Contact submenu'))
-    expect(screen.getByText('Send a Message')).toBeInTheDocument()
-    expect(screen.getByText('Give & Partner')).toBeInTheDocument()
-    expect(screen.getByText('Find a Church')).toBeInTheDocument()
-  })
-
   it('renders Ministries sub-items in the mobile overlay', () => {
     render(<Nav />)
     fireEvent.click(screen.getByLabelText('Open menu'))
