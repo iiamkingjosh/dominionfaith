@@ -37,9 +37,6 @@ export default function MinistriesFilter() {
     [active],
   )
 
-  const activeColor =
-    active === 'all' ? '#2A2FAA' : MINISTRY_CATEGORY_CONFIG[active as MinistryCategory].color
-
   return (
     <section className="w-full pb-24 md:pb-32">
       {/* ── Sticky filter bar ── */}
@@ -116,15 +113,19 @@ export default function MinistriesFilter() {
           {filtered.length} {filtered.length === 1 ? 'ministry' : 'ministries'} found
         </MotionDiv>
 
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            layout
+        <AnimatePresence mode="wait">
+          <MotionDiv
+            key={active}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             {filtered.map((ministry, i) => (
               <MinistryCard key={ministry.id} ministry={ministry} index={i} />
             ))}
-          </motion.div>
+          </MotionDiv>
         </AnimatePresence>
 
         {filtered.length === 0 && (

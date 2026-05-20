@@ -40,11 +40,9 @@ export default function MinistryCard({ ministry, index }: MinistryCardProps) {
 
   return (
     <MotionDiv
-      layout
-      initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -4, transition: { duration: 0.2, ease: 'easeOut' } }}
       className="group flex flex-col overflow-hidden rounded-2xl"
       style={{
