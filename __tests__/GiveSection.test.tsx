@@ -9,18 +9,12 @@ describe('GiveSection', () => {
     expect(screen.getByText('Partner With Us')).toBeInTheDocument()
   })
 
-  it('renders all three tier cards', () => {
+  it('renders all four tier cards', () => {
     render(<GiveSection />)
-    expect(screen.getByText('One-time Gift')).toBeInTheDocument()
+    expect(screen.getByText('Offering')).toBeInTheDocument()
     expect(screen.getByText('Monthly Partner')).toBeInTheDocument()
-    expect(screen.getByText('Honor Gift')).toBeInTheDocument()
-  })
-
-  it('renders all stats labels', () => {
-    render(<GiveSection />)
-    expect(screen.getByText('Years of Ministry')).toBeInTheDocument()
-    expect(screen.getByText('Lives Changed')).toBeInTheDocument()
-    expect(screen.getByText('Nations Reached')).toBeInTheDocument()
+    expect(screen.getByText('Kingdom Seed')).toBeInTheDocument()
+    expect(screen.getByText('Honor Seed')).toBeInTheDocument()
   })
 
   it('renders amount preset buttons', () => {
@@ -40,10 +34,10 @@ describe('GiveSection', () => {
 
   it('tier selection toggles aria-pressed', () => {
     render(<GiveSection />)
-    const honorBtn = screen.getByRole('button', { name: 'Honor Gift' })
-    expect(honorBtn).toHaveAttribute('aria-pressed', 'false')
-    fireEvent.click(honorBtn)
-    expect(honorBtn).toHaveAttribute('aria-pressed', 'true')
+    const seedBtn = screen.getByRole('button', { name: 'Kingdom Seed' })
+    expect(seedBtn).toHaveAttribute('aria-pressed', 'false')
+    fireEvent.click(seedBtn)
+    expect(seedBtn).toHaveAttribute('aria-pressed', 'true')
   })
 
   it('shows name validation error on empty submit', async () => {
@@ -64,7 +58,7 @@ describe('GiveSection', () => {
     })
   })
 
-  it('shows processing state during submission', async () => {
+  it('shows processing state during submission', () => {
     render(<GiveSection />)
     fireEvent.change(screen.getByLabelText(/full name/i), { target: { value: 'Joshua Moses' } })
     fireEvent.change(screen.getByLabelText(/email address/i), { target: { value: 'josh@example.com' } })

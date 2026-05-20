@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useState, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { Lock, CheckCircle, AlertCircle, RotateCcw } from 'lucide-react'
 import confetti from 'canvas-confetti'
 
 // ── Types ─────────────────────────────────────────────────────
-type TierId = 'one-time' | 'monthly' | 'honor'
+type TierId = 'offering' | 'monthly' | 'kingdom-seed' | 'honor-seed'
 type MethodId = 'card' | 'bank' | 'mobile'
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -28,22 +28,28 @@ interface FormErrors {
 // ── Data ──────────────────────────────────────────────────────
 const TIERS = [
   {
-    id: 'one-time' as TierId,
-    label: 'One-time Gift',
-    description: 'Give as the Spirit leads — any amount, anytime',
-    icon: '✦',
+    id: 'offering' as TierId,
+    label: 'Offering',
+    description: 'Give from your heart as the Spirit moves. Every willing heart is precious before God.',
+    icon: '🙏',
   },
   {
     id: 'monthly' as TierId,
     label: 'Monthly Partner',
-    description: 'Join our family of faithful, recurring givers',
+    description: 'Become a covenant partner in the work of the Kingdom. Your faithfulness sustains the mission.',
     icon: '♾',
     popular: true,
   },
   {
-    id: 'honor' as TierId,
-    label: 'Honor Gift',
-    description: 'Give in memory or in honour of someone special',
+    id: 'kingdom-seed' as TierId,
+    label: 'Kingdom Seed',
+    description: 'Sow a bold seed into Kingdom expansion. What you plant today shapes the harvest of tomorrow.',
+    icon: '🌱',
+  },
+  {
+    id: 'honor-seed' as TierId,
+    label: 'Honor Seed',
+    description: 'Give in honour or memory of a loved one. Let your gift become their living legacy.',
     icon: '❤',
   },
 ]
@@ -62,60 +68,8 @@ const METHODS = [
   { id: 'mobile' as MethodId, label: 'Mobile Money',   emoji: '📱' },
 ]
 
-const STATS = [
-  { target: 10,   suffix: '+', label: 'Years of Ministry',
-    format: (n: number) => String(n) },
-  { target: 5000, suffix: '+', label: 'Lives Changed',
-    format: (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n) },
-  { target: 100,  suffix: '+', label: 'Nations Reached',
-    format: (n: number) => String(n) },
-]
-
-// 0ms in test so the success state is reachable without fake timers
+// 0ms in test so success state is reachable without fake timers
 const PAYMENT_DELAY_MS = process.env.NODE_ENV === 'test' ? 0 : 1500
-
-// ── Count-up hook ─────────────────────────────────────────────
-function useCountUp(target: number, active: boolean): number {
-  const [count, setCount] = useState(0)
-  useEffect(() => {
-    if (!active) return
-    let current = 0
-    const steps = 120
-    const increment = target / steps
-    const id = setInterval(() => {
-      current += increment
-      if (current >= target) {
-        setCount(target)
-        clearInterval(id)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, 1000 / 60)
-    return () => clearInterval(id)
-  }, [target, active])
-  return count
-}
-
-// ── Stat item ─────────────────────────────────────────────────
-function StatItem({
-  target, suffix, label, format, active,
-}: {
-  target: number; suffix: string; label: string
-  format: (n: number) => string; active: boolean
-}) {
-  const count = useCountUp(target, active)
-  return (
-    <div className="text-center">
-      <p
-        className="font-black leading-none"
-        style={{ fontSize: 'clamp(24px, 3.5vw, 42px)', color: 'var(--give-stat-color)' }}
-      >
-        {format(count)}{suffix}
-      </p>
-      <p className="mt-1 text-white/50 text-xs">{label}</p>
-    </div>
-  )
-}
 
 // ── Validation ────────────────────────────────────────────────
 function validate(data: GiveFormData): FormErrors {
@@ -133,24 +87,14 @@ function validate(data: GiveFormData): FormErrors {
   return errors
 }
 
-// ── Payment ───────────────────────────────────────────────────
-// To integrate Paystack: set NEXT_PUBLIC_PAYSTACK_KEY in .env.local and
-// replace the timeout below with PaystackPop.setup({ key, email, amount }).openIframe()
-export async function processPayment(_data: GiveFormData): Promise<void> {
-  await new Promise<void>(resolve => setTimeout(resolve, PAYMENT_DELAY_MS))
-}
-
 // ── Framer Motion ─────────────────────────────────────────────
 const EASE_OUT = [0.16, 1, 0.3, 1] as const
 const MotionDiv = motion.div
 
 // ── Component ─────────────────────────────────────────────────
 export default function GiveSection() {
-  const statsRef = useRef<HTMLDivElement>(null)
-  const statsInView = useInView(statsRef, { once: true, amount: 0.3 })
-
   const [form, setForm] = useState<GiveFormData>({
-    tier: 'one-time',
+    tier: 'offering',
     amount: '5000',
     customAmount: '',
     name: '',
@@ -176,15 +120,49 @@ export default function GiveSection() {
       if (Object.keys(errs).length > 0) { setErrors(errs); return }
       setErrors({})
       setFormState('submitting')
-      try {
-        await processPayment(form)
+
+      const resolvedAmt = form.amount === 'custom' ? form.customAmount : form.amount
+
+      const launchConfetti = () => confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#F9A916', '#F61F27', '#2A2FAA', '#ffffff', '#FFD700'],
+      })
+
+      const onSuccess = () => {
         setFormState('success')
-        confetti({
-          particleCount: 150,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#F9A916', '#F61F27', '#2A2FAA', '#ffffff', '#FFD700'],
-        })
+        launchConfetti()
+      }
+
+      // ── Paystack integration ──────────────────────────────
+      // Activated when NEXT_PUBLIC_PAYSTACK_KEY is set in .env.local
+      const key = process.env.NEXT_PUBLIC_PAYSTACK_KEY
+      const PaystackPop = typeof window !== 'undefined' ? (window as any).PaystackPop : null
+
+      if (key && PaystackPop) {
+        PaystackPop.setup({
+          key,
+          email: form.email,
+          amount: Number(resolvedAmt) * 100, // Paystack expects kobo
+          currency: 'NGN',
+          channels: ['card', 'bank', 'mobile_money'],
+          metadata: {
+            custom_fields: [
+              { display_name: 'Full Name', variable_name: 'name', value: form.name },
+              { display_name: 'Giving Type', variable_name: 'tier', value: form.tier },
+            ],
+          },
+          callback: onSuccess,
+          onClose: () => setFormState('idle'),
+        }).openIframe()
+        return
+      }
+
+      // ── Demo mode (no key set) ────────────────────────────
+      try {
+        await new Promise<void>(resolve => setTimeout(resolve, PAYMENT_DELAY_MS))
+        onSuccess()
       } catch {
         setFormState('error')
       }
@@ -230,7 +208,7 @@ export default function GiveSection() {
           <p className="mb-6 text-sm leading-relaxed text-white/55">
             Your {TIERS.find(t => t.id === form.tier)?.label.toLowerCase()} of{' '}
             <strong className="text-white/85">{displayAmount}</strong> has been received.
-            A confirmation will be sent to{' '}
+            Heaven records every seed sown in faith. A confirmation will be sent to{' '}
             <strong className="text-white/85">{form.email}</strong>.
           </p>
           <button
@@ -252,21 +230,7 @@ export default function GiveSection() {
 
   // ── Main form ─────────────────────────────────────────────
   return (
-    <div className="mx-auto max-w-xl px-4 py-20">
-
-      {/* Stats row */}
-      <div
-        ref={statsRef}
-        className="mb-16 grid grid-cols-3 gap-4 rounded-2xl px-4 py-8"
-        style={{
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.08)',
-        }}
-      >
-        {STATS.map(stat => (
-          <StatItem key={stat.label} {...stat} active={statsInView} />
-        ))}
-      </div>
+    <div className="mx-auto max-w-xl px-4 py-24">
 
       {/* Headline */}
       <div className="mb-10 text-center">
@@ -277,10 +241,7 @@ export default function GiveSection() {
             borderColor: 'rgba(249,169,22,0.2)',
           }}
         >
-          <span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ background: 'var(--color-live)' }}
-          />
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--color-live)' }} />
           <span
             className="text-[11px] font-semibold uppercase tracking-[0.1em]"
             style={{ color: 'var(--color-live)' }}
@@ -295,12 +256,13 @@ export default function GiveSection() {
           Partner With Us
         </h1>
         <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-white/45">
-          Your generosity fuels the mission of raising champions. Every gift plants a seed of greatness.
+          Every seed you sow is an act of faith. God honours the cheerful giver — and your generosity
+          fuels the mission of raising champions across the nations.
         </p>
       </div>
 
-      {/* Tier cards */}
-      <div className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+      {/* Tier cards — 2×2 grid */}
+      <div className="mb-8 grid grid-cols-2 gap-3">
         {TIERS.map(tier => {
           const isSelected = form.tier === tier.id
           return (
