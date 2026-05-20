@@ -2,5 +2,7 @@ node_modules
 .superpowers
 .next
 *.tsbuildinfo
-
+.claude
+_mocks_
+_tests_
 
