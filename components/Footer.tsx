@@ -43,23 +43,20 @@ function TwitterXIcon() {
 // ── Data ───────────────────────────────────────────────────────
 
 const QUICK_LINKS = [
-  { label: 'Home',        href: '/'            },
-  { label: 'About',       href: '/about'        },
-  { label: 'Sermons',     href: '/sermons'      },
-  { label: 'Events',      href: '/events'       },
-  { label: 'Testimonies', href: '/testimonies'  },
-  { label: 'Blog',        href: '/blog'         },
-  { label: 'Locations',   href: '/locations'    },
-  { label: 'Give',        href: '/give'         },
-  { label: 'Contact',     href: '/contact'      },
+  { label: 'Home',      href: '/'          },
+  { label: 'About',     href: '/about'     },
+  { label: 'Sermons',   href: '/sermons'   },
+  { label: 'Events',    href: '/events'    },
+  { label: 'Blog',      href: '/blog'      },
+  { label: 'Locations', href: '/locations' },
 ]
 
 const MINISTRY_LINKS = [
-  { label: 'Hospital & Prison Ministry', href: '/ministries' },
-  { label: 'Faith Clinic',               href: '/ministries' },
-  { label: 'Leadership School',          href: '/school-of-ministry' },
-  { label: 'Departments',                href: '/departments' },
-  { label: 'House Fellowship',           href: '/house-fellowship' },
+  { label: 'Hospital & Prison Ministry', href: '/ministries'        },
+  { label: 'Faith Clinic',               href: '/ministries'        },
+  { label: 'School of Ministry',         href: '/school-of-ministry'},
+  { label: 'Departments',                href: '/departments'       },
+  { label: 'House Fellowship',           href: '/house-fellowship'  },
 ]
 
 const SOCIAL = [
@@ -164,76 +161,47 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16 md:px-16 lg:px-24">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
 
-          {/* ── About ── */}
-          <FooterSection title="About" open={openSection === 'about'} onToggle={() => toggle('about')}>
-            <div className="space-y-4">
-              <Link href="/" className="inline-block" aria-label="Dominion Faith home">
-                <Image
-                  src="/logo.png"
-                  alt="Dominion Faith International Ministry"
-                  width={48}
-                  height={48}
-                  className="rounded-full object-contain"
-                />
-              </Link>
+          {/* ── About (no accordion title) ── */}
+          <div className="space-y-4">
+            <Link href="/" className="inline-block" aria-label="Dominion Faith home">
+              <Image
+                src="/logo.png"
+                alt="Dominion Faith International Ministry"
+                width={48}
+                height={48}
+                className="rounded-full object-contain"
+              />
+            </Link>
 
-              <p className="text-[13px] leading-relaxed text-white/50">
-                Raising champions who don't just survive life — but dominate it.
-                A community of faith rooted in God's Word and committed to
-                transforming every sphere of society.
-              </p>
+            <p className="text-[13px] leading-relaxed text-white/50">
+              DFIM is a place where champions are made by God's word, so come
+              and become that champion by His word.
+            </p>
 
-              <div className="space-y-2.5 text-[13px] text-white/50">
-                <a
-                  href="https://maps.app.goo.gl/SjQqahPJix5dge9J8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-2 transition-colors hover:text-white"
-                >
-                  <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
-                  <span>1 Dominion Avenue, Onireke, Opposite Ojo Barrack, Lagos, Nigeria</span>
-                </a>
-                <a href="tel:+2347034543971" className="flex items-center gap-2 transition-colors hover:text-white">
-                  <Phone className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
-                  +234 703 454 3971
-                </a>
-                <a href="mailto:info@dominionfaith.org" className="flex items-center gap-2 transition-colors hover:text-white">
-                  <Mail className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
-                  info@dominionfaith.org
-                </a>
-              </div>
-
-              {/* Embedded map — click opens full Maps */}
-              <div className="relative overflow-hidden rounded-xl" style={{ height: '110px' }}>
-                <iframe
-                  src="https://maps.google.com/maps?q=Dominion+Faith+International+Ministry+Onireke+Opposite+Ojo+Barrack+Lagos+Nigeria&output=embed"
-                  width="100%"
-                  height="110"
-                  loading="lazy"
-                  title="Dominion Faith location map"
-                  style={{ border: 0, pointerEvents: 'none', display: 'block' }}
-                />
-                <a
-                  href="https://maps.app.goo.gl/SjQqahPJix5dge9J8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute inset-0 flex items-end justify-start p-2"
-                  aria-label="Open in Google Maps"
-                >
-                  <span
-                    className="rounded-full px-2.5 py-1 text-[10px] font-bold text-white"
-                    style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(8px)' }}
-                  >
-                    Open in Maps ↗
-                  </span>
-                </a>
-              </div>
+            <div className="space-y-2 text-[13px] text-white/50">
+              <a
+                href="https://maps.app.goo.gl/SjQqahPJix5dge9J8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 transition-colors hover:text-white"
+              >
+                <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
+                <span>1 Dominion Avenue, Onireke, Opposite Ojo Barrack, Lagos, Nigeria</span>
+              </a>
+              <a href="tel:+2347034543971" className="flex items-center gap-2 transition-colors hover:text-white">
+                <Phone className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
+                +234 703 454 3971
+              </a>
+              <a href="mailto:info@dominionfaith.com" className="flex items-center gap-2 transition-colors hover:text-white">
+                <Mail className="h-3.5 w-3.5 flex-shrink-0" aria-hidden="true" />
+                info@dominionfaith.com
+              </a>
             </div>
-          </FooterSection>
+          </div>
 
           {/* ── Quick Links ── */}
           <FooterSection title="Quick Links" open={openSection === 'links'} onToggle={() => toggle('links')}>
-            <ul className="space-y-2.5">
+            <ul className="space-y-1.5">
               {QUICK_LINKS.map(link => (
                 <li key={link.href}>
                   <Link
@@ -249,7 +217,7 @@ export default function Footer() {
 
           {/* ── Ministries ── */}
           <FooterSection title="Ministries" open={openSection === 'ministries'} onToggle={() => toggle('ministries')}>
-            <ul className="space-y-2.5">
+            <ul className="space-y-1.5">
               {MINISTRY_LINKS.map(link => (
                 <li key={link.label}>
                   <Link

@@ -9,7 +9,7 @@ describe('Footer', () => {
 
   it('renders the mission statement', () => {
     render(<Footer />)
-    expect(screen.getByText(/Raising champions who don't just survive/i)).toBeInTheDocument()
+    expect(screen.getByText(/DFIM is a place where champions are made/i)).toBeInTheDocument()
   })
 
   it('renders the church address', () => {
@@ -25,20 +25,28 @@ describe('Footer', () => {
 
   it('renders the email address', () => {
     render(<Footer />)
-    expect(screen.getByRole('link', { name: /info@dominionfaith.org/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /info@dominionfaith.com/i })).toBeInTheDocument()
   })
 
   it('renders Quick Links section with key pages', () => {
     render(<Footer />)
     expect(screen.getByRole('link', { name: 'Sermons' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Events' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Give' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Blog' })).toBeInTheDocument()
+  })
+
+  it('does not render removed Quick Links', () => {
+    render(<Footer />)
+    expect(screen.queryByRole('link', { name: 'Testimonies' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Give' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Contact' })).not.toBeInTheDocument()
   })
 
   it('renders Ministries section', () => {
     render(<Footer />)
     expect(screen.getByText('Hospital & Prison Ministry')).toBeInTheDocument()
     expect(screen.getByText('Faith Clinic')).toBeInTheDocument()
+    expect(screen.getByText('School of Ministry')).toBeInTheDocument()
   })
 
   it('renders newsletter email input and subscribe button', () => {
