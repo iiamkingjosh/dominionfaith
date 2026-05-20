@@ -230,10 +230,10 @@ export default function GiveSection() {
 
   // ── Main form ─────────────────────────────────────────────
   return (
-    <div className="mx-auto max-w-xl px-4 py-24">
+    <div className="px-6 py-24 md:px-16 lg:px-24">
 
       {/* Headline */}
-      <div className="mb-10 text-center">
+      <div className="mx-auto mb-10 max-w-2xl text-center">
         <div
           className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
           style={{
@@ -255,14 +255,15 @@ export default function GiveSection() {
         >
           Partner With Us
         </h1>
-        <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-white/45">
+        <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-white/45">
           Every seed you sow is an act of faith. God honours the cheerful giver — and your generosity
           fuels the mission of raising champions across the nations.
         </p>
       </div>
 
-      {/* Tier cards — 2×2 grid */}
-      <div className="mb-8 grid grid-cols-2 gap-3">
+      {/* Tier cards — 2×2 grid, wider than the form */}
+      <div className="mx-auto mb-8 max-w-4xl">
+      <div className="grid grid-cols-2 gap-4">
         {TIERS.map(tier => {
           const isSelected = form.tier === tier.id
           return (
@@ -293,8 +294,10 @@ export default function GiveSection() {
           )
         })}
       </div>
+      </div>
 
-      {/* Form card */}
+      {/* Form card — intentionally narrower; forms look bad too wide */}
+      <div className="mx-auto max-w-xl">
       <div className="card-double-bezel p-6 sm:p-8" role="form" aria-label="Giving form">
         <form onSubmit={handleSubmit} noValidate>
 
@@ -474,6 +477,7 @@ export default function GiveSection() {
             </span>
           </div>
         </form>
+      </div>
       </div>
     </div>
   )

@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 export default function VisitPage() {
   return (
     <main
-      className="min-h-screen px-4 py-32"
+      className="min-h-screen px-6 py-32 md:px-16 lg:px-24"
       style={{ background: 'var(--hero-bg)' }}
     >
-      <div className="mx-auto max-w-lg">
+      <div className="mx-auto max-w-xl">
         <ServiceCard />
       </div>
     </main>

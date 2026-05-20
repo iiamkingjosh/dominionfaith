@@ -60,10 +60,10 @@ const SERMONS: Sermon[] = [
 export default function SermonsPage() {
   return (
     <main
-      className="min-h-screen px-4 py-32"
+      className="min-h-screen px-6 py-32 md:px-16 lg:px-24"
       style={{ background: 'var(--hero-bg)' }}
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
           <div
             className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
