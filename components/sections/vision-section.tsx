@@ -154,7 +154,7 @@ export default function VisionSection() {
             style={{ fontSize: 'clamp(36px, 6vw, 80px)' }}
           >
             A Place Where{' '}
-            <span style={{ color: '#F9A916' }}>
+            <span style={{ color: 'transparent', WebkitTextStroke: '2px white' }}>
               Champions
             </span>{' '}
             Are Made
