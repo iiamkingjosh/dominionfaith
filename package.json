@@ -8,10 +8,13 @@
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.9",
     "@hookform/resolvers": "^5.2.2",
+    "@next/bundle-analyzer": "^16.2.6",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^11",
     "lucide-react": "^0.400.0",
@@ -19,6 +22,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.76.0",
+    "sharp": "^0.34.5",
     "zod": "^4.4.3"
   },
   "devDependencies": {

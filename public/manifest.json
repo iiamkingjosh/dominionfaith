@@ -1,0 +1,42 @@
+{
+  "name": "Dominion Faith International Ministry",
+  "short_name": "Dominion Faith",
+  "description": "A Place Where Champions Are Made — Word-based, Spirit-led, Faith-driven.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07071f",
+  "theme_color": "#2A2FAA",
+  "categories": ["lifestyle", "education"],
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Watch Sermons",
+      "url": "/media/sermons",
+      "description": "Browse the sermon archive"
+    },
+    {
+      "name": "Give Online",
+      "url": "/give",
+      "description": "Give your offering or tithe"
+    },
+    {
+      "name": "Find Us",
+      "url": "/locations",
+      "description": "Get directions to our church"
+    }
+  ]
+}
