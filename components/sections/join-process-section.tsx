@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Download } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { JOIN_STEPS } from '@/data/join-steps'
 import ProcessStep from '@/components/ui/process-step'
@@ -16,7 +16,13 @@ export default function JoinProcessSection() {
   return (
     <section
       className="w-full py-24 md:py-32"
-      style={{ background: '#0a0a1f', borderTop: '1px solid rgba(255,255,255,0.05)' }}
+      style={{
+        background:
+          'radial-gradient(ellipse 80% 60% at 15% 0%, rgba(99,102,241,0.28) 0%, transparent 55%),' +
+          'radial-gradient(ellipse 60% 70% at 85% 100%, rgba(168,85,247,0.18) 0%, transparent 55%),' +
+          'linear-gradient(160deg, #0f0f12 0%, #07071f 100%)',
+        borderTop: '1px solid rgba(99,102,241,0.2)',
+      }}
       aria-labelledby="join-heading"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-16">
@@ -136,7 +142,7 @@ export default function JoinProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+          className="mt-16 flex justify-center"
         >
           <Link
             href="/locations"
@@ -149,14 +155,6 @@ export default function JoinProcessSection() {
               className="transition-transform duration-200 group-hover:translate-x-1"
             />
           </Link>
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-2xl px-8 py-4 text-sm font-semibold text-white/60 transition-colors hover:text-white"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
-          >
-            <Download size={15} />
-            New Here? Start Here Guide
-          </button>
         </MotionDiv>
 
       </div>
