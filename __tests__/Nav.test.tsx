@@ -44,9 +44,17 @@ describe('Nav', () => {
 
   it('renders all top-level nav items', () => {
     render(<Nav />)
-    for (const label of ['Home', 'About', 'Media', 'Sermons', 'Events', 'Blog', 'Contact']) {
+    for (const label of ['Home', 'About', 'Media', 'Sermons', 'Events', 'Blog']) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0)
     }
+  })
+
+  it('renders Blog sub-items (Contact and Locations) in the mobile overlay', () => {
+    render(<Nav />)
+    fireEvent.click(screen.getByLabelText('Open menu'))
+    fireEvent.click(screen.getByLabelText('Open Blog submenu'))
+    expect(screen.getByText('Contact')).toBeInTheDocument()
+    expect(screen.getByText('Locations')).toBeInTheDocument()
   })
 
   it('renders the Ministries dropdown trigger', () => {

@@ -39,9 +39,14 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Sermons', href: '/sermons' },
   { label: 'Events', href: '/events' },
   { label: 'Testimonies', href: '/testimonies' },
-  { label: 'Locations', href: '/locations' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
+  {
+    label: 'Blog',
+    href: '/blog',
+    children: [
+      { label: 'Contact',   href: '/contact'   },
+      { label: 'Locations', href: '/locations' },
+    ],
+  },
 ]
 
 // ── Framer Motion variants ────────────────────────────────────────────────────
