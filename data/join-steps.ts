@@ -17,7 +17,7 @@ export const JOIN_STEPS: Step[] = [
     description: 'Experience worship with us',
     detail: 'Join us for any of our weekly services. Come as you are and experience the presence of God with the Dominion Faith family.',
     icon: Calendar,
-    color: '#6366f1',
+    color: '#2A2FAA',
   },
   {
     number: 2,
@@ -25,7 +25,7 @@ export const JOIN_STEPS: Step[] = [
     description: 'Fill out a connection card',
     detail: "Let us know you're here. A connection card helps our pastoral team reach out personally and ensure you feel at home.",
     icon: Link2,
-    color: '#3b82f6',
+    color: '#4B52C0',
   },
   {
     number: 3,
@@ -33,7 +33,7 @@ export const JOIN_STEPS: Step[] = [
     description: 'Find your place to serve',
     detail: "Every member has a role. From music to children's ministry to hospitality — find where your gift belongs.",
     icon: Users,
-    color: '#8b5cf6',
+    color: '#F61F27',
   },
   {
     number: 4,
@@ -41,7 +41,7 @@ export const JOIN_STEPS: Step[] = [
     description: 'Make your faith public',
     detail: 'Water baptism is a public declaration of your faith in Jesus Christ — an act of obedience and a milestone of celebration.',
     icon: Droplets,
-    color: '#06b6d4',
+    color: '#F97020',
   },
   {
     number: 5,
@@ -49,6 +49,6 @@ export const JOIN_STEPS: Step[] = [
     description: 'Commit to the family',
     detail: 'Formal membership means committing to the vision of DFIM, the Twelve Visions, and the family of believers here.',
     icon: Heart,
-    color: '#f97316',
+    color: '#F9A916',
   },
 ]

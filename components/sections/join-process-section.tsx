@@ -18,10 +18,10 @@ export default function JoinProcessSection() {
       className="w-full py-24 md:py-32"
       style={{
         background:
-          'radial-gradient(ellipse 80% 60% at 15% 0%, rgba(99,102,241,0.28) 0%, transparent 55%),' +
-          'radial-gradient(ellipse 60% 70% at 85% 100%, rgba(168,85,247,0.18) 0%, transparent 55%),' +
+          'radial-gradient(ellipse 80% 60% at 15% 0%, rgba(42,47,170,0.28) 0%, transparent 55%),' +
+          'radial-gradient(ellipse 60% 70% at 85% 100%, rgba(246,31,39,0.15) 0%, transparent 55%),' +
           'linear-gradient(160deg, #0f0f12 0%, #07071f 100%)',
-        borderTop: '1px solid rgba(99,102,241,0.2)',
+        borderTop: '1px solid rgba(42,47,170,0.2)',
       }}
       aria-labelledby="join-heading"
     >
@@ -54,7 +54,7 @@ export default function JoinProcessSection() {
               Join Our{' '}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, #6366f1 0%, #f97316 100%)',
+                  background: 'linear-gradient(135deg, #2A2FAA 0%, #F61F27 50%, #F9A916 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -147,7 +147,7 @@ export default function JoinProcessSection() {
           <Link
             href="/locations"
             className="group inline-flex items-center gap-2.5 rounded-2xl px-8 py-4 text-sm font-bold text-white transition-opacity hover:opacity-90"
-            style={{ background: 'linear-gradient(135deg, #6366f1 0%, #f97316 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #2A2FAA 0%, #F9A916 100%)' }}
           >
             Start Your Journey
             <ArrowRight

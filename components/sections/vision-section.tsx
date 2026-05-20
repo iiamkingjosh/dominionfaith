@@ -18,30 +18,30 @@ const PILLARS = [
     title: 'The Word',
     description:
       'Rooted in Scripture, every message and ministry flows from the uncompromising Word of God — our final authority and the source of all true dominion.',
-    accentColor: '#3b82f6',
-    bgColor: 'rgba(59,130,246,0.06)',
-    borderColor: 'rgba(59,130,246,0.18)',
-    iconBgColor: 'rgba(59,130,246,0.14)',
+    accentColor: '#2A2FAA',
+    bgColor: 'rgba(42,47,170,0.06)',
+    borderColor: 'rgba(42,47,170,0.18)',
+    iconBgColor: 'rgba(42,47,170,0.14)',
   },
   {
     icon: <Wind size={24} />,
     title: 'The Spirit',
     description:
       'We welcome the full ministry of the Holy Spirit. Every believer is invited to live and minister in the supernatural dimension of the Spirit of God.',
-    accentColor: '#ef4444',
-    bgColor: 'rgba(239,68,68,0.06)',
-    borderColor: 'rgba(239,68,68,0.18)',
-    iconBgColor: 'rgba(239,68,68,0.14)',
+    accentColor: '#F61F27',
+    bgColor: 'rgba(246,31,39,0.06)',
+    borderColor: 'rgba(246,31,39,0.18)',
+    iconBgColor: 'rgba(246,31,39,0.14)',
   },
   {
     icon: <Zap size={24} />,
     title: 'Faith in Action',
     description:
       'Faith is not passive — it is a force. We equip members to apply Kingdom principles in business, family, health, and community life.',
-    accentColor: '#f97316',
-    bgColor: 'rgba(249,115,22,0.06)',
-    borderColor: 'rgba(249,115,22,0.18)',
-    iconBgColor: 'rgba(249,115,22,0.14)',
+    accentColor: '#F9A916',
+    bgColor: 'rgba(249,169,22,0.06)',
+    borderColor: 'rgba(249,169,22,0.18)',
+    iconBgColor: 'rgba(249,169,22,0.14)',
   },
 ]
 
@@ -117,21 +117,21 @@ export default function VisionSection() {
           animate={{ scale: [1, 1.18, 1], opacity: [0.18, 0.26, 0.18] }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
           className="pointer-events-none absolute -left-48 -top-48 h-[700px] w-[700px] rounded-full"
-          style={{ background: 'radial-gradient(circle, #6366f1 0%, transparent 68%)' }}
+          style={{ background: 'radial-gradient(circle, #2A2FAA 0%, transparent 68%)' }}
           aria-hidden="true"
         />
         <MotionDiv
           animate={{ scale: [1, 1.12, 1], opacity: [0.12, 0.2, 0.12] }}
           transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
           className="pointer-events-none absolute -bottom-32 -right-32 h-[600px] w-[600px] rounded-full"
-          style={{ background: 'radial-gradient(circle, #3b82f6 0%, transparent 68%)' }}
+          style={{ background: 'radial-gradient(circle, #F61F27 0%, transparent 68%)' }}
           aria-hidden="true"
         />
         <MotionDiv
           animate={{ scale: [1, 1.08, 1], opacity: [0.08, 0.14, 0.08] }}
           transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
           className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 rounded-full"
-          style={{ background: 'radial-gradient(circle, #a78bfa 0%, transparent 68%)' }}
+          style={{ background: 'radial-gradient(circle, #F9A916 0%, transparent 68%)' }}
           aria-hidden="true"
         />
 
@@ -156,7 +156,7 @@ export default function VisionSection() {
             A Place Where{' '}
             <span
               style={{
-                background: 'linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #60a5fa 100%)',
+                background: 'linear-gradient(135deg, #2A2FAA 0%, #F61F27 55%, #F9A916 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -218,7 +218,7 @@ export default function VisionSection() {
             <FadeUp delay={0.1}>
               <div
                 className="flex flex-col items-start gap-1 rounded-2xl p-7"
-                style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)' }}
+                style={{ background: 'rgba(42,47,170,0.08)', border: '1px solid rgba(42,47,170,0.2)' }}
               >
                 <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/30">
                   Founded
@@ -256,7 +256,7 @@ export default function VisionSection() {
               <FadeUp delay={0.22}>
                 <blockquote
                   className="rounded-xl py-5 pl-6 italic text-white/80"
-                  style={{ borderLeft: '3px solid #6366f1', background: 'rgba(99,102,241,0.06)' }}
+                  style={{ borderLeft: '3px solid #2A2FAA', background: 'rgba(42,47,170,0.06)' }}
                 >
                   <p>
                     "Let us make man in our image, after our likeness; and let them have dominion over the fish of
@@ -387,13 +387,13 @@ export default function VisionSection() {
                 <div
                   className="flex items-center gap-5 rounded-2xl px-6 py-5 text-left"
                   style={{
-                    background: 'rgba(99,102,241,0.05)',
-                    border: '1px solid rgba(99,102,241,0.15)',
+                    background: 'rgba(42,47,170,0.05)',
+                    border: '1px solid rgba(42,47,170,0.15)',
                   }}
                 >
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-sm font-black"
-                    style={{ background: 'rgba(99,102,241,0.18)', color: '#818cf8' }}
+                    style={{ background: 'rgba(42,47,170,0.18)', color: '#6A70D8' }}
                     aria-hidden="true"
                   >
                     {i + 1}
