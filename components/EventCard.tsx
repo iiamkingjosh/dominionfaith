@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { MapPin, Clock, ExternalLink } from 'lucide-react'
+import { MapPin, Clock } from 'lucide-react'
 import type { ChurchEvent } from '@/types/event'
 import { CATEGORY_CONFIG } from '@/types/event'
 
@@ -137,22 +137,6 @@ export default function EventCard({ event, index, isPast = false }: EventCardPro
         </div>
       </div>
 
-      {/* ── Register button — upcoming events only, slides up on hover ── */}
-      {!isPast && event.registrationUrl && (
-        <div className="translate-y-2 px-5 pb-0 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:pb-5 group-hover:opacity-100">
-          <a
-            href={event.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex w-full items-center justify-center gap-2 rounded-full py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
-            style={{ background: cfg.color }}
-            aria-label={`Register for ${event.title}`}
-          >
-            <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-            Register
-          </a>
-        </div>
-      )}
     </MotionDiv>
   )
 }

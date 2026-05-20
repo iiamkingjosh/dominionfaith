@@ -100,7 +100,6 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
     location: 'HQ — 1 Dominion Avenue, Onireke, Lagos',
     category: 'special',
     featured: true,
-    registrationUrl: '#',
   },
   {
     id: 'womens-summit',
@@ -111,7 +110,6 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
     location: 'HQ — 1 Dominion Avenue, Onireke, Lagos',
     category: 'women',
     featured: true,
-    registrationUrl: '#',
   },
   {
     id: 'childrens-day',
@@ -122,7 +120,6 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
     location: 'HQ — 1 Dominion Avenue, Onireke, Lagos',
     category: 'children',
     featured: true,
-    registrationUrl: '#',
   },
   {
     id: 'mens-summit',
@@ -133,7 +130,6 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
     location: 'HQ — 1 Dominion Avenue, Onireke, Lagos',
     category: 'men',
     featured: true,
-    registrationUrl: '#',
   },
   {
     id: 'vigil-jun',
@@ -227,7 +223,6 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
     location: 'HQ — 1 Dominion Avenue, Onireke, Lagos',
     category: 'youth',
     featured: true,
-    registrationUrl: '#',
   },
   {
     id: 'couples-dinner',
@@ -237,7 +232,6 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
     time: '6:00 PM',
     location: 'HQ — 1 Dominion Avenue, Onireke, Lagos',
     category: 'special',
-    registrationUrl: '#',
   },
   {
     id: 'elite-business-nov',
@@ -269,7 +263,6 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
     location: 'HQ — 1 Dominion Avenue, Onireke, Lagos',
     category: 'special',
     featured: true,
-    registrationUrl: '#',
   },
 ]
 

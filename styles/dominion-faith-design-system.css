@@ -40,6 +40,11 @@
   --give-tier-selected-bg: rgba(249, 169, 22, 0.12);
   --give-tier-selected-border: rgba(249, 169, 22, 0.45);
 
+  /* Success / transformation tag */
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.12);
+  --color-success-border: rgba(16, 185, 129, 0.3);
+
   /* Event category colours */
   --event-services: #06b6d4;
   --event-youth:    #2A2FAA;

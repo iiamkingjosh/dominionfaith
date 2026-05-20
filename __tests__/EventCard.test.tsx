@@ -12,7 +12,6 @@ const event: ChurchEvent = {
   location: 'HQ — 1 Dominion Avenue, Lagos',
   category: 'special',
   featured: true,
-  registrationUrl: 'https://example.com/register',
 }
 
 const regularEvent: ChurchEvent = {
@@ -53,24 +52,16 @@ describe('EventCard', () => {
 
   it('renders formatted start date', () => {
     render(<EventCard event={event} index={0} />)
-    // April 21, 2026 or similar — may appear in multiple elements (calendar widget + date range)
     expect(screen.getAllByText(/Apr/i).length).toBeGreaterThan(0)
   })
 
   it('renders the day number for the calendar widget', () => {
     render(<EventCard event={event} index={0} />)
-    // startDate is 2026-04-21 → day is "21"
     expect(screen.getByText('21')).toBeInTheDocument()
   })
 
-  it('renders Register link when registrationUrl is provided', () => {
+  it('never renders a Register link', () => {
     render(<EventCard event={event} index={0} />)
-    const link = screen.getByRole('link', { name: /register/i })
-    expect(link).toHaveAttribute('href', 'https://example.com/register')
-  })
-
-  it('does not render Register link when registrationUrl is absent', () => {
-    render(<EventCard event={regularEvent} index={0} />)
     expect(screen.queryByRole('link', { name: /register/i })).not.toBeInTheDocument()
   })
 
@@ -81,7 +72,11 @@ describe('EventCard', () => {
 
   it('renders end date for multi-day events', () => {
     render(<EventCard event={event} index={0} />)
-    // Shows "Apr 21 – Apr 26" or similar
     expect(screen.getByText(/26/)).toBeInTheDocument()
+  })
+
+  it('shows Past Event badge for past events', () => {
+    render(<EventCard event={event} index={0} isPast />)
+    expect(screen.getByText(/past event/i)).toBeInTheDocument()
   })
 })
