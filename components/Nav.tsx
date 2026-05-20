@@ -113,16 +113,26 @@ function MobileAccordion({
 
   return (
     <div className="border-b border-white/[0.07]">
-      <button
-        className="flex w-full items-center justify-between py-2.5 text-[18px] font-bold text-white"
-        onClick={() => setOpen((o) => !o)}
-      >
-        {item.label}
-        <ChevronDown
-          size={18}
-          className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-        />
-      </button>
+      <div className="flex items-center justify-between py-2.5">
+        <Link
+          href={item.href}
+          onClick={onClose}
+          className="text-[18px] font-bold text-white"
+        >
+          {item.label}
+        </Link>
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-label={`${open ? 'Close' : 'Open'} ${item.label} submenu`}
+          className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-white/10"
+        >
+          <ChevronDown
+            size={18}
+            className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          />
+        </button>
+      </div>
 
       <AnimatePresence>
         {open && (
@@ -244,27 +254,35 @@ export default function Nav() {
                 className="relative"
                 onMouseEnter={() => handleDropdownEnter(item.label)}
                 onMouseLeave={handleDropdownLeave}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setActiveDropdown((a) => (a === item.label ? null : item.label))
-                }}
               >
-                <button
-                  type="button"
-                  className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors select-none ${
-                    pathname.startsWith(item.href)
-                      ? 'bg-white/15 text-white'
-                      : 'text-white/75 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                  <ChevronDown
-                    size={12}
-                    className={`transition-transform duration-200 ${
-                      activeDropdown === item.label ? 'rotate-180' : ''
+                <div className="flex items-center">
+                  <Link
+                    href={item.href}
+                    className={`rounded-full px-3 py-1.5 text-sm transition-colors select-none ${
+                      pathname.startsWith(item.href)
+                        ? 'bg-white/15 text-white'
+                        : 'text-white/75 hover:bg-white/10 hover:text-white'
                     }`}
-                  />
-                </button>
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveDropdown((a) => (a === item.label ? null : item.label))
+                    }}
+                    aria-label={`${item.label} submenu`}
+                    className="rounded-full p-1 text-white/50 hover:text-white transition-colors"
+                  >
+                    <ChevronDown
+                      size={12}
+                      className={`transition-transform duration-200 ${
+                        activeDropdown === item.label ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                </div>
 
                 <AnimatePresence>
                   {activeDropdown === item.label && (

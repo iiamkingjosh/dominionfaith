@@ -57,10 +57,8 @@ describe('Nav', () => {
   it('renders Ministries sub-items in the mobile overlay', () => {
     render(<Nav />)
     fireEvent.click(screen.getByLabelText('Open menu'))
-    // Expand the Ministries accordion in mobile
-    const ministryButtons = screen.getAllByText('Ministries')
-    // The last one is in the overlay
-    fireEvent.click(ministryButtons[ministryButtons.length - 1])
+    // Expand the Ministries accordion via the chevron toggle button
+    fireEvent.click(screen.getByLabelText('Open Ministries submenu'))
     expect(screen.getByText('Leadership')).toBeInTheDocument()
     expect(screen.getByText('School of Ministry')).toBeInTheDocument()
     expect(screen.getByText('Departments')).toBeInTheDocument()
