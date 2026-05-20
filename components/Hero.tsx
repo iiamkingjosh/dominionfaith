@@ -150,7 +150,7 @@ export default function Hero() {
           className="mb-6 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center"
         >
           <Link
-            href="/visit"
+            href="/locations"
             className="w-full rounded-full px-8 py-3.5 text-center text-sm font-bold text-white sm:w-auto"
             style={{
               background: 'var(--color-primary)',

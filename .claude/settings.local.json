@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:/Users/pc/Documents/dominion-faith\" rev-parse HEAD)",
+      "Bash(git -C \"c:/Users/pc/Documents/dominion-faith\" show HEAD:components/Nav.tsx)",
+      "Bash(npm test *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(npx jest *)"
+    ]
+  }
+}

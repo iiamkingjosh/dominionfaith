@@ -43,10 +43,10 @@ describe('Hero', () => {
     expect(screen.getByText('5pm')).toBeInTheDocument()
   })
 
-  it('renders Plan Your Visit CTA linking to /visit', () => {
+  it('renders Plan Your Visit CTA linking to /locations', () => {
     render(<Hero />)
     const link = screen.getByRole('link', { name: /Plan Your Visit/i })
-    expect(link).toHaveAttribute('href', '/visit')
+    expect(link).toHaveAttribute('href', '/locations')
   })
 
   it('renders Watch Live CTA linking to /live', () => {

@@ -30,6 +30,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Media', href: '/media' },
   { label: 'Sermons', href: '/sermons' },
   { label: 'Events', href: '/events' },
+  { label: 'Locations', href: '/locations' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]
