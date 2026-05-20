@@ -1,10 +1,20 @@
 export interface Sermon {
   id: string
-  videoId: string          // YouTube video ID (e.g. "dQw4w9WgXcQ")
+  videoId: string
+  slug?: string
   title: string
   speaker: string
-  speakerPhoto?: string    // absolute URL or /public path
-  date: string             // ISO "YYYY-MM-DD"
-  series?: string          // series name for badge
-  downloadUrl?: string     // optional direct audio/video download URL
+  speakerPhoto?: string
+  date: string
+  duration?: string
+  durationSeconds?: number
+  scripture?: string
+  series?: string
+  seriesSlug?: string
+  topic?: string[]
+  description?: string
+  audioUrl?: string
+  downloadUrl?: string
+  viewCount?: number
+  featured?: boolean
 }
