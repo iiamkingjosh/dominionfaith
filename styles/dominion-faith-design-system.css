@@ -45,6 +45,15 @@
   --color-success-bg: rgba(16, 185, 129, 0.12);
   --color-success-border: rgba(16, 185, 129, 0.3);
 
+  /* Easing — in-out for image zoom */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Blog category colours */
+  --blog-teachings:    #2A2FAA;
+  --blog-leadership:   #F9A916;
+  --blog-marriage:     #10b981;
+  --blog-finance:      rgba(255, 255, 255, 0.55);
+
   /* Event category colours */
   --event-services: #06b6d4;
   --event-youth:    #2A2FAA;

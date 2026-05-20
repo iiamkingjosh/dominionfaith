@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import EventCard from '@/components/EventCard'
 import type { ChurchEvent } from '@/types/event'
 
@@ -78,5 +78,38 @@ describe('EventCard', () => {
   it('shows Past Event badge for past events', () => {
     render(<EventCard event={event} index={0} isPast />)
     expect(screen.getByText(/past event/i)).toBeInTheDocument()
+  })
+
+  // ── Calendar functionality ──────────────────────────────────
+
+  it('renders Add to Calendar button for upcoming events', () => {
+    render(<EventCard event={event} index={0} />)
+    expect(screen.getByRole('button', { name: /add to calendar/i })).toBeInTheDocument()
+  })
+
+  it('does not render Add to Calendar button for past events', () => {
+    render(<EventCard event={event} index={0} isPast />)
+    expect(screen.queryByRole('button', { name: /add to calendar/i })).not.toBeInTheDocument()
+  })
+
+  it('opens calendar dropdown on button click', () => {
+    render(<EventCard event={event} index={0} />)
+    fireEvent.click(screen.getByRole('button', { name: /add to calendar/i }))
+    expect(screen.getByText(/Apple Calendar/i)).toBeInTheDocument()
+    expect(screen.getByText(/Google Calendar/i)).toBeInTheDocument()
+    expect(screen.getByText(/Outlook/i)).toBeInTheDocument()
+  })
+
+  it('dropdown is hidden before calendar button is clicked', () => {
+    render(<EventCard event={event} index={0} />)
+    expect(screen.queryByText(/Apple Calendar/i)).not.toBeInTheDocument()
+  })
+
+  it('Google Calendar renders as a link', () => {
+    render(<EventCard event={event} index={0} />)
+    fireEvent.click(screen.getByRole('button', { name: /add to calendar/i }))
+    const gcLink = screen.getByRole('link', { name: /Google Calendar/i })
+    expect(gcLink).toHaveAttribute('href', expect.stringContaining('calendar.google.com'))
+    expect(gcLink).toHaveAttribute('target', '_blank')
   })
 })
