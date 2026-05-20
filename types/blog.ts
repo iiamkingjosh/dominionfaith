@@ -15,6 +15,7 @@ export interface BlogPost {
   slug: string
   title: string
   excerpt: string
+  content?: string[]    // array of paragraph strings for the full article
   category: BlogCategory
   author: BlogAuthor
   publishedAt: string   // ISO "YYYY-MM-DD"

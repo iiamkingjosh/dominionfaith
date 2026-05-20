@@ -3,6 +3,65 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Clock, CalendarPlus, ChevronDown } from 'lucide-react'
+
+// ── Calendar brand icons ──────────────────────────────────────
+
+function AppleCalIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 40 44" fill="none" aria-hidden="true">
+      {/* card body */}
+      <rect x="0" y="4" width="40" height="36" rx="6" fill="white"/>
+      {/* red header */}
+      <rect x="0" y="4" width="40" height="13" rx="6" fill="#FF3B30"/>
+      <rect x="0" y="11" width="40" height="6" fill="#FF3B30"/>
+      {/* binding rings */}
+      <rect x="10" y="0" width="3.5" height="9" rx="1.75" fill="#636366"/>
+      <rect x="26.5" y="0" width="3.5" height="9" rx="1.75" fill="#636366"/>
+      {/* date number */}
+      <text x="20" y="34" textAnchor="middle" fontSize="17" fontWeight="800"
+            fill="#1a1a1a" fontFamily="system-ui,sans-serif">15</text>
+    </svg>
+  )
+}
+
+function GoogleCalIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="38" height="38" rx="4" fill="white"/>
+      {/* blue header */}
+      <rect x="1" y="1" width="38" height="11" rx="4" fill="#1a73e8"/>
+      <rect x="1" y="8" width="38" height="4" fill="#1a73e8"/>
+      {/* grid dots — 3×2 */}
+      {[11,20,29].map(cx => [22,31].map(cy => (
+        <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="2.5"
+          fill={cx === 20 && cy === 22 ? '#1a73e8' : '#bdbdbd'}/>
+      )))}
+      {/* date */}
+      <text x="20" y="37" textAnchor="middle" fontSize="9" fontWeight="700"
+            fill="#1a73e8" fontFamily="system-ui,sans-serif">Google</text>
+    </svg>
+  )
+}
+
+function OutlookCalIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      {/* outer blue square */}
+      <rect x="1" y="1" width="38" height="38" rx="6" fill="#0078d4"/>
+      {/* white inner calendar */}
+      <rect x="9" y="9" width="22" height="22" rx="2" fill="white"/>
+      {/* blue header strip */}
+      <rect x="9" y="9" width="22" height="7" rx="2" fill="#0078d4"/>
+      {/* "O" mark */}
+      <circle cx="20" cy="12.5" r="2.5" fill="white"/>
+      {/* calendar lines */}
+      <rect x="12" y="20" width="6" height="2" rx="1" fill="#0078d4"/>
+      <rect x="22" y="20" width="6" height="2" rx="1" fill="#0078d4"/>
+      <rect x="12" y="25" width="6" height="2" rx="1" fill="#0078d4"/>
+      <rect x="22" y="25" width="6" height="2" rx="1" fill="#0078d4"/>
+    </svg>
+  )
+}
 import type { ChurchEvent } from '@/types/event'
 import { CATEGORY_CONFIG } from '@/types/event'
 
@@ -292,13 +351,14 @@ export default function EventCard({ event, index, isPast = false }: EventCardPro
                   boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
                 }}
               >
-                {/* Apple / iCal */}
+                {/* Apple Calendar */}
                 <button
                   type="button"
                   onClick={() => { downloadEventIcs(event); setIsCalOpen(false) }}
-                  className="w-full rounded-xl px-3 py-2.5 text-left text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                  className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  🍎 Apple Calendar
+                  <AppleCalIcon />
+                  Apple Calendar
                 </button>
 
                 {/* Google Calendar */}
@@ -307,18 +367,20 @@ export default function EventCard({ event, index, isPast = false }: EventCardPro
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsCalOpen(false)}
-                  className="block rounded-xl px-3 py-2.5 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  🗓 Google Calendar
+                  <GoogleCalIcon />
+                  Google Calendar
                 </a>
 
                 {/* Outlook / iCal */}
                 <button
                   type="button"
                   onClick={() => { downloadEventIcs(event); setIsCalOpen(false) }}
-                  className="w-full rounded-xl px-3 py-2.5 text-left text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                  className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  📧 Outlook / iCal
+                  <OutlookCalIcon />
+                  Outlook / iCal
                 </button>
               </div>
             )}
