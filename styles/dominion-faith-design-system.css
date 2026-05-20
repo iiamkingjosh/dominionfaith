@@ -34,4 +34,9 @@
   /* Sermon series badge */
   --badge-series-bg: rgba(249, 169, 22, 0.18);
   --badge-series-color: #F9A916;
+
+  /* Give section tokens */
+  --give-stat-color: #F9A916;
+  --give-tier-selected-bg: rgba(249, 169, 22, 0.12);
+  --give-tier-selected-border: rgba(249, 169, 22, 0.45);
 }

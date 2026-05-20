@@ -68,3 +68,39 @@
     transparent 100%
   );
 }
+
+/* ── Give page background ──────────────────────────── */
+/* Warm orange-to-red gradient tints on the deep navy base */
+.give-bg {
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 15%, rgba(249, 169, 22, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 90% 85%, rgba(246, 31, 39, 0.11) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(180, 40, 10, 0.07) 0%, transparent 50%),
+    linear-gradient(160deg, #120607 0%, #0d0509 40%, #07071f 100%);
+}
+
+/* ── Glass input ───────────────────────────────────── */
+.input-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: white;
+  transition:
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+
+.input-glass:focus {
+  outline: none;
+  border-color: var(--color-live);
+  box-shadow: 0 0 0 3px rgba(249, 169, 22, 0.15);
+}
+
+.input-glass.input-error {
+  border-color: var(--color-give);
+  box-shadow: 0 0 0 3px rgba(246, 31, 39, 0.15);
+}
+
+.input-glass::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
