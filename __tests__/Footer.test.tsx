@@ -86,10 +86,10 @@ describe('Footer', () => {
     expect(link).toHaveAttribute('target', '_blank')
   })
 
-  it('renders Privacy Policy and Terms links', () => {
+  it('does not render Privacy Policy or Terms links', () => {
     render(<Footer />)
-    expect(screen.getByRole('link', { name: /privacy policy/i })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /terms of service/i })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /privacy policy/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /terms of service/i })).not.toBeInTheDocument()
   })
 
   it('mobile accordion toggles section visibility', () => {

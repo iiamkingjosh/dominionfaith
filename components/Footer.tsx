@@ -318,23 +318,17 @@ export default function Footer() {
             © {new Date().getFullYear()} Dominion Faith International Ministry. All Rights Reserved.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/privacy" className="transition-colors hover:text-white">Privacy Policy</Link>
-            <span aria-hidden="true">·</span>
-            <Link href="/terms" className="transition-colors hover:text-white">Terms of Service</Link>
-            <span aria-hidden="true">·</span>
-            <span>
-              Built by{' '}
-              <a
-                href="https://chronixtechnology.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-white"
-              >
-                Chronix Technology Limited
-              </a>
-            </span>
-          </div>
+          <span>
+            Built by{' '}
+            <a
+              href="https://chronixtechnology.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+            >
+              Chronix Technology Limited
+            </a>
+          </span>
         </div>
       </div>
     </footer>
