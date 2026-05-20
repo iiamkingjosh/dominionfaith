@@ -104,3 +104,24 @@
 .input-glass::placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
+
+/* ── Events ────────────────────────────────────────── */
+@keyframes calFlip {
+  0%   { transform: rotateX(0deg);  opacity: 1; }
+  45%  { transform: rotateX(90deg); opacity: 0; }
+  55%  { transform: rotateX(90deg); opacity: 0; }
+  100% { transform: rotateX(0deg);  opacity: 1; }
+}
+
+.group:hover .cal-date-num {
+  animation: calFlip 0.45s var(--ease-out);
+}
+
+/* Hide scrollbar but keep scroll behaviour (filter tabs) */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

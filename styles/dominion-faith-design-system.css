@@ -39,4 +39,12 @@
   --give-stat-color: #F9A916;
   --give-tier-selected-bg: rgba(249, 169, 22, 0.12);
   --give-tier-selected-border: rgba(249, 169, 22, 0.45);
+
+  /* Event category colours */
+  --event-services: #06b6d4;
+  --event-youth:    #2A2FAA;
+  --event-women:    #F9A916;
+  --event-men:      #F61F27;
+  --event-children: #10b981;
+  --event-special:  #a855f7;
 }
