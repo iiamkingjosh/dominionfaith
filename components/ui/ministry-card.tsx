@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Clock, MapPin, Mail, Phone, ArrowRight } from 'lucide-react'
+import { Clock, MapPin, Mail, Phone } from 'lucide-react'
 import type { Ministry } from '@/types/ministry'
 import { MINISTRY_CATEGORY_CONFIG } from '@/types/ministry'
 
@@ -32,11 +32,6 @@ interface MinistryCardProps {
 
 export default function MinistryCard({ ministry, index }: MinistryCardProps) {
   const cfg = MINISTRY_CATEGORY_CONFIG[ministry.category]
-  const joinHref = ministry.contact.email
-    ? `mailto:${ministry.contact.email}`
-    : ministry.contact.phone
-      ? `tel:${ministry.contact.phone}`
-      : '/contact'
 
   return (
     <MotionDiv
@@ -109,8 +104,8 @@ export default function MinistryCard({ ministry, index }: MinistryCardProps) {
           {ministry.description}
         </p>
 
-        {/* ── Footer: leader + join ── */}
-        <div className="mt-auto flex items-center justify-between border-t border-white/[0.07] pt-4">
+        {/* ── Footer: leader ── */}
+        <div className="mt-auto flex items-center border-t border-white/[0.07] pt-4">
           <div className="flex items-center gap-2.5 min-w-0">
             <LeaderAvatar name={ministry.leader.name} color={cfg.color} />
             <div className="min-w-0">
@@ -122,16 +117,6 @@ export default function MinistryCard({ ministry, index }: MinistryCardProps) {
               )}
             </div>
           </div>
-
-          <a
-            href={joinHref}
-            className="group/btn ml-3 flex flex-shrink-0 items-center gap-1.5 rounded-xl px-4 py-2 text-[12px] font-bold text-white transition-opacity hover:opacity-80"
-            style={{ background: cfg.color }}
-            aria-label={`Join ${ministry.name}`}
-          >
-            Join
-            <ArrowRight size={12} className="transition-transform duration-200 group-hover/btn:translate-x-0.5" />
-          </a>
         </div>
 
         {/* Contact links */}

@@ -18,7 +18,7 @@ const LOCATION_DISPLAY =
 const PHONE_DISPLAY = '+234 703 454 3971'
 const PHONE_TEL     = '+2347034543971'
 const MAPS_EMBED_URL =
-  'https://maps.google.com/maps?q=Dominion+Faith+International+Ministry+Onireke+Opposite+Ojo+Barrack+Lagos+Nigeria&output=embed'
+  'https://maps.google.com/maps?q=1+Dominion+Avenue+Onireke+Opposite+Ojo+Barrack+Lagos+Nigeria&t=&z=16&ie=UTF8&iwloc=&output=embed'
 const DIRECTIONS_URL = 'https://maps.app.goo.gl/SjQqahPJix5dge9J8'
 
 // ── Calendar helpers ──────────────────────────────────────────────────────────

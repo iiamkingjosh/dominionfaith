@@ -23,7 +23,6 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Leadership', href: '/leadership' },
       { label: 'School of Ministry', href: '/school-of-ministry' },
-      { label: 'Departments', href: '/departments' },
       { label: 'House Fellowship', href: '/house-fellowship' },
     ],
   },
@@ -33,12 +32,10 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Sermon Archive', href: '/media/sermons' },
       { label: 'Sermon Series', href: '/media/series' },
-      { label: 'Watch Live', href: '/live' },
     ],
   },
   { label: 'Sermons', href: '/sermons' },
   { label: 'Events', href: '/events' },
-  { label: 'Testimonies', href: '/testimonies' },
   {
     label: 'Blog',
     href: '/blog',

@@ -55,7 +55,6 @@ const MINISTRY_LINKS = [
   { label: 'Hospital & Prison Ministry', href: '/ministries'        },
   { label: 'Faith Clinic',               href: '/ministries'        },
   { label: 'School of Ministry',         href: '/school-of-ministry'},
-  { label: 'Departments',                href: '/departments'       },
   { label: 'House Fellowship',           href: '/house-fellowship'  },
 ]
 
@@ -313,7 +312,7 @@ export default function Footer() {
         className="border-t px-6 py-5 md:px-16 lg:px-24"
         style={{ borderColor: 'rgba(255,255,255,0.07)' }}
       >
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 text-[11px] text-white/30">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 text-[13px] text-white/30">
           <p>
             © {new Date().getFullYear()} Dominion Faith International Ministry. All Rights Reserved.
           </p>
