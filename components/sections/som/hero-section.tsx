@@ -1,104 +1,145 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { GraduationCap, BookOpen, Users, CalendarDays } from 'lucide-react'
 
-const MotionDiv = motion.div
-const MotionH1  = motion.h1
-const MotionP   = motion.p
-const EASE_OUT  = [0.16, 1, 0.3, 1] as const
+const EASE_OUT = [0.16, 1, 0.3, 1] as const
+
+const containerVariants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.12 } },
+}
+
+const itemVariants = {
+  hidden:  { opacity: 0, y: 64, filter: 'blur(8px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: EASE_OUT } },
+}
+
+const itemVariantsReduced = {
+  hidden:  { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.4 } },
+}
+
+const STATS = [
+  { icon: BookOpen,      value: '6',            label: 'Courses'         },
+  { icon: Users,         value: '2',            label: 'Study Modes'     },
+  { icon: CalendarDays,  value: 'June 2025',    label: 'Next Intake'     },
+  { icon: GraduationCap, value: 'Certificate',  label: 'Award'           },
+]
 
 export default function HeroSection() {
+  const ref            = useRef<HTMLElement>(null)
+  const isInView       = useInView(ref, { once: true, amount: 0.2 })
   const prefersReduced = useReducedMotion()
 
-  const fadeUp = (delay: number) =>
-    prefersReduced
-      ? {}
-      : {
-          initial:    { opacity: 0, y: 24 },
-          animate:    { opacity: 1, y: 0  },
-          transition: { duration: 0.6, delay, ease: EASE_OUT },
-        }
+  const item = prefersReduced ? itemVariantsReduced : itemVariants
 
   return (
     <section
-      className="relative w-full overflow-hidden py-32 md:py-44"
-      style={{ background: 'linear-gradient(160deg, #1a1f8f 0%, #2A2FAA 45%, #1e2380 100%)' }}
+      ref={ref}
+      className="relative flex min-h-screen items-center overflow-hidden px-6 py-24 md:px-16 lg:px-24"
       aria-label="School of Ministry hero"
     >
-      {/* Animated background orbs */}
-      <MotionDiv
-        className="pointer-events-none absolute -left-40 -top-40 h-[700px] w-[700px] rounded-full opacity-30"
-        style={{ background: 'radial-gradient(circle, #4a50cc 0%, transparent 65%)' }}
-        animate={prefersReduced ? {} : { x: [0, 40, -20, 0], y: [0, -30, 20, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-        aria-hidden="true"
-      />
-      <MotionDiv
-        className="pointer-events-none absolute -bottom-20 right-0 h-[500px] w-[500px] rounded-full opacity-20"
-        style={{ background: 'radial-gradient(circle, #F9A916 0%, transparent 65%)' }}
-        animate={prefersReduced ? {} : { x: [0, -30, 20, 0], y: [0, 20, -30, 0] }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'linear', delay: 5 }}
-        aria-hidden="true"
-      />
-      <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+      {/* Animated gradient mesh — same as homepage */}
+      <div aria-hidden="true" className="hero-bg absolute inset-0" />
+      <div aria-hidden="true" className="hero-grid absolute inset-0" />
 
-      <div className="relative mx-auto max-w-4xl px-6 text-center md:px-16">
-        {/* Badges */}
-        <MotionDiv {...fadeUp(0)} className="mb-6 flex flex-wrap items-center justify-center gap-3">
-          <span
-            className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white"
-            style={{ background: 'rgba(246,31,39,0.15)', borderColor: 'rgba(246,31,39,0.35)' }}
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#F61F27]" />
-            New Intake — June 2025
+      <motion.div
+        className="relative z-10 flex w-full flex-col items-center text-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+      >
+        {/* Eyebrow pill */}
+        <motion.div
+          variants={item}
+          className="mb-7 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
+          style={{ background: 'rgba(255,255,255,0.06)', borderColor: 'rgba(255,255,255,0.10)' }}
+        >
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full" style={{ background: 'var(--color-live)' }} />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white/70">
+            Dominion Faith International Ministry
           </span>
-          <span
-            className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white/80"
-            style={{ borderColor: 'rgba(255,255,255,0.25)', background: 'rgba(255,255,255,0.08)' }}
-          >
-            Online &amp; In-Person
-          </span>
-        </MotionDiv>
+        </motion.div>
 
-        {/* Eyebrow */}
-        <MotionP {...fadeUp(0.05)} className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white/50">
-          Dominion Faith International Ministry
-        </MotionP>
-
-        {/* H1 */}
-        <MotionH1
-          {...fadeUp(0.1)}
-          className="mb-5 font-black leading-tight tracking-[-0.03em] text-white"
-          style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}
+        {/* Headline */}
+        <motion.h1
+          variants={item}
+          className="mb-4 font-black leading-none tracking-[-0.04em] text-white"
+          style={{ fontSize: 'var(--text-hero)' }}
         >
           School of <span style={{ color: '#F9A916' }}>Ministry</span>
-        </MotionH1>
+        </motion.h1>
 
-        {/* Subheading */}
-        <MotionP
-          {...fadeUp(0.2)}
-          className="mx-auto mb-10 max-w-xl text-[16px] leading-relaxed text-white/65 md:text-lg"
+        {/* Scholarly sub-copy — italic, same style as homepage mission */}
+        <motion.p
+          variants={item}
+          className="mb-10 max-w-2xl italic leading-[1.75] text-white/55"
+          style={{ fontSize: 'var(--hero-mission-size)' }}
         >
-          Equipping believers with the Word, wisdom, and spiritual authority to transform their world
-        </MotionP>
+          Every believer carries a{' '}
+          <strong className="font-semibold not-italic text-white/85">divine mandate.</strong>{' '}
+          The School of Ministry exists to equip you with the Word, wisdom, and spiritual authority
+          to walk in that mandate and{' '}
+          <strong className="font-semibold not-italic text-white/85">transform your world.</strong>
+        </motion.p>
 
-        {/* CTAs */}
-        <MotionDiv {...fadeUp(0.3)} className="flex flex-wrap items-center justify-center gap-4">
+        {/* Academic stat cards — same shell as homepage service cards */}
+        <motion.div variants={item} className="mb-10 flex flex-wrap justify-center gap-3">
+          {STATS.map(({ icon: Icon, value, label }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center gap-2.5 rounded-2xl px-6 py-[18px] text-center"
+              style={{
+                background:           'var(--hero-card-bg)',
+                border:               '1px solid var(--hero-card-border)',
+                backdropFilter:       'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                minWidth:             '128px',
+              }}
+            >
+              <Icon size={15} style={{ color: '#F9A916' }} aria-hidden="true" />
+              <p className="text-[22px] font-extrabold leading-none text-white">{value}</p>
+              <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-white/40">{label}</p>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTAs — same layout as homepage */}
+        <motion.div
+          variants={item}
+          className="mb-6 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center"
+        >
           <a
             href="#enroll"
-            className="rounded-full px-8 py-3.5 text-sm font-black transition-opacity hover:opacity-85"
-            style={{ background: '#F9A916', color: '#1a1206', boxShadow: '0 4px 20px rgba(249,169,22,0.45)' }}
+            className="w-full rounded-full px-8 py-3.5 text-center text-sm font-bold text-white sm:w-auto"
+            style={{ background: 'var(--color-primary)', boxShadow: '0 4px 24px rgba(42,47,170,0.5)' }}
           >
             Enroll Now
           </a>
           <a
             href="#courses"
-            className="rounded-full border border-white/30 px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white/10"
+            className="flex w-full items-center justify-center gap-2 rounded-full border px-7 py-3.5 text-sm font-bold sm:w-auto"
+            style={{
+              color:       '#F9A916',
+              borderColor: 'rgba(249,169,22,0.35)',
+              background:  'rgba(249,169,22,0.08)',
+            }}
           >
-            Learn More
+            View Courses
           </a>
-        </MotionDiv>
-      </div>
+        </motion.div>
+
+        {/* Intake notice — like the location line on homepage */}
+        <motion.p
+          variants={item}
+          className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-white/30"
+        >
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#F61F27]" />
+          New Intake: June 2025 — Applications Now Open · Online &amp; In-Person
+        </motion.p>
+      </motion.div>
     </section>
   )
 }

@@ -13,9 +13,9 @@ describe('HeroSection', () => {
     expect(link).toHaveAttribute('href', '#enroll')
   })
 
-  it('renders Learn More CTA linking to #courses', () => {
+  it('renders View Courses CTA linking to #courses', () => {
     render(<HeroSection />)
-    const link = screen.getByRole('link', { name: /learn more/i })
+    const link = screen.getByRole('link', { name: /view courses/i })
     expect(link).toHaveAttribute('href', '#courses')
   })
 

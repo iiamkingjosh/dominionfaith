@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItem[] = [
     href: '/ministries',
     children: [
       { label: 'Leadership', href: '/leadership' },
-      { label: 'School of Ministry', href: '/school-of-ministry' },
+      { label: 'School of Ministry', href: '/ministries/school-of-ministry' },
       { label: 'House Fellowship', href: '/house-fellowship' },
     ],
   },
