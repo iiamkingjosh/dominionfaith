@@ -43,7 +43,7 @@ const HUBS = [
     href: '/live',
     icon: Radio,
     label: 'Watch Live',
-    sub: 'Sundays 9 AM & 11 AM',
+    sub: 'Sundays 9 AM',
     description: 'Join our live Sunday services from anywhere in the world.',
     gradient: 'linear-gradient(135deg, #1a0000 0%, #F61F27 100%)',
     glowColor: 'rgba(246,31,39,0.3)',
@@ -213,6 +213,7 @@ export default function MediaPage() {
                 <Link
                   key={hub.href}
                   href={hub.href}
+                  {...(hub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="group relative overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-2"
                   style={{ border: `1px solid ${hub.borderColor}` }}
                 >

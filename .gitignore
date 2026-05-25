@@ -5,4 +5,5 @@ node_modules
 .claude
 _mocks_
 _tests_
+.swc
 
