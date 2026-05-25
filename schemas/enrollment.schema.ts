@@ -17,48 +17,48 @@ export type DistrictValue = (typeof DISTRICTS)[number]['value']
 export const enrollmentSchema = z.object({
   email:                       z.string().email('Please enter a valid email address'),
   passportPhoto:               z.string().min(1, 'Passport photo is required'),
-  title:                       z.enum(['Mr.', 'Mrs.', 'Dr.', 'Miss', 'Mister', 'Other'], {
-                                 errorMap: () => ({ message: 'Please select a title' }),
+  title:                       z.enum(['Mr.', 'Mrs.', 'Dr.', 'Miss', 'Mister', 'Other'] as const, {
+                                 message: 'Please select a title',
                                }),
   titleOther:                  z.string().optional(),
   firstName:                   z.string().min(2, 'First name must be at least 2 characters'),
   lastName:                    z.string().min(2, 'Last name must be at least 2 characters'),
   dateOfBirth:                 z.string().min(1, 'Date of birth is required'),
-  gender:                      z.enum(['Male', 'Female'], {
-                                 errorMap: () => ({ message: 'Please select your gender' }),
+  gender:                      z.enum(['Male', 'Female'] as const, {
+                                 message: 'Please select your gender',
                                }),
-  maritalStatus:               z.enum(['Married', 'Single', 'Divorced', 'Widow / Widower', 'Separated'], {
-                                 errorMap: () => ({ message: 'Please select your marital status' }),
+  maritalStatus:               z.enum(['Married', 'Single', 'Divorced', 'Widow / Widower', 'Separated'] as const, {
+                                 message: 'Please select your marital status',
                                }),
   nationality:                 z.string().min(1, 'Nationality is required'),
   phone:                       z.string().regex(/^0[0-9]{10}$/, 'Enter a valid 11-digit Nigerian number starting with 0'),
   homeAddress:                 z.string().min(5, 'Please enter your full address'),
   churchName:                  z.string().min(2, 'Church name is required'),
-  district:                    z.enum(['HQ', 'Mebamu', 'Festac', 'Coconut', 'Gabon', 'Onitsha', 'Isuochi', 'Delta', 'Other'], {
-                                 errorMap: () => ({ message: 'Please select your district' }),
+  district:                    z.enum(['HQ', 'Mebamu', 'Festac', 'Coconut', 'Gabon', 'Onitsha', 'Isuochi', 'Delta', 'Other'] as const, {
+                                 message: 'Please select your district',
                                }),
   districtOther:               z.string().optional(),
-  programmeMode:               z.enum(['Physical', 'Online'], {
-                                 errorMap: () => ({ message: 'Please select a programme mode' }),
+  programmeMode:               z.enum(['Physical', 'Online'] as const, {
+                                 message: 'Please select a programme mode',
                                }),
-  employed:                    z.enum(['Yes', 'No', 'Maybe'], {
-                                 errorMap: () => ({ message: 'Please select your employment status' }),
+  employed:                    z.enum(['Yes', 'No', 'Maybe'] as const, {
+                                 message: 'Please select your employment status',
                                }),
   occupation:                  z.string().optional(),
-  previousSOM:                 z.enum(['Yes', 'No'], {
-                                 errorMap: () => ({ message: 'Please answer this question' }),
+  previousSOM:                 z.enum(['Yes', 'No'] as const, {
+                                 message: 'Please answer this question',
                                }),
   previousSOMDetails:          z.string().optional(),
   educationBackground:         z.string().min(10, 'Please provide your education background'),
   newBirthExperience:          z.string().min(20, 'Please describe your new birth experience'),
   placeOfWorship:              z.string().min(5, 'Please specify your place of worship'),
-  previousBibleCollege:        z.enum(['Yes', 'No'], {
-                                 errorMap: () => ({ message: 'Please answer this question' }),
+  previousBibleCollege:        z.enum(['Yes', 'No'] as const, {
+                                 message: 'Please answer this question',
                                }),
   previousBibleCollegeDetails: z.string().optional(),
   departmentInChurch:          z.string().min(2, 'Department is required'),
   indemnity:                   z.literal(true, {
-                                 errorMap: () => ({ message: 'You must agree to the declaration to proceed' }),
+                                 message: 'You must agree to the declaration to proceed',
                                }),
   paymentProof:                z.string().min(1, 'Proof of payment is required'),
 })

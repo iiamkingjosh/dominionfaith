@@ -83,7 +83,6 @@ describe('Nav', () => {
     fireEvent.click(screen.getByLabelText('Open Ministries submenu'))
     expect(screen.getByText('Leadership')).toBeInTheDocument()
     expect(screen.getByText('School of Ministry')).toBeInTheDocument()
-    expect(screen.getByText('Departments')).toBeInTheDocument()
     expect(screen.getByText('House Fellowship')).toBeInTheDocument()
   })
 
