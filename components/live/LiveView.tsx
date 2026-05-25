@@ -51,6 +51,7 @@ export default function LiveView({ channelId }: LiveViewProps) {
             src={embedSrc}
             title="Dominion Faith International Ministry — Live Service"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
             allowFullScreen
             className="absolute inset-0 h-full w-full"
           />
