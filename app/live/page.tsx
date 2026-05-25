@@ -2,6 +2,9 @@
 import type { Metadata } from 'next'
 import LiveView from '@/components/live/LiveView'
 import OfflineView from '@/components/live/OfflineView'
+import { isLiveNow } from '@/lib/live'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Watch Live — Dominion Faith International Ministry',
@@ -9,10 +12,9 @@ export const metadata: Metadata = {
 }
 
 export default function LivePage() {
-  const isLive = process.env.NEXT_PUBLIC_IS_LIVE === 'true'
   const channelId = process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL_ID ?? ''
 
-  if (isLive && channelId) {
+  if (isLiveNow() && channelId) {
     return <LiveView channelId={channelId} />
   }
 

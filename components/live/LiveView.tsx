@@ -56,6 +56,9 @@ export default function LiveView({ channelId }: LiveViewProps) {
             className="absolute inset-0 h-full w-full"
           />
         </div>
+        <p className="mt-3 text-center text-xs text-white/30">
+          Service is in progress · Stream begins when the pastor ministers
+        </p>
       </div>
 
       {/* Service time + Give */}
