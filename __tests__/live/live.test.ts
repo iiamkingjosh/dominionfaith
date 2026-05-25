@@ -30,4 +30,17 @@ describe('isLiveNow', () => {
     jest.setSystemTime(new Date('2024-01-08T09:00:00Z'))
     expect(isLiveNow()).toBe(false)
   })
+
+  it('returns true on a weekday when FORCE_LIVE=true (special event)', () => {
+    jest.setSystemTime(new Date('2024-01-08T09:00:00Z'))
+    process.env.FORCE_LIVE = 'true'
+    expect(isLiveNow()).toBe(true)
+    delete process.env.FORCE_LIVE
+  })
+
+  it('returns false outside Sunday window even if FORCE_LIVE is unset', () => {
+    jest.setSystemTime(new Date('2024-01-08T09:00:00Z'))
+    delete process.env.FORCE_LIVE
+    expect(isLiveNow()).toBe(false)
+  })
 })
