@@ -88,7 +88,7 @@ export default function ScheduleSection() {
           <div ref={ref} className="mb-2 font-black" style={{ fontSize: 'clamp(40px,6vw,72px)', color: '#2A2FAA' }}>
             ₦{count.toLocaleString()}
           </div>
-          <p className="mb-1 text-[14px] text-white/50">Total fee — covers all 6 courses</p>
+          <p className="mb-1 text-[14px] text-white/50">Total fee — covers all 8 courses</p>
           <p className="text-[13px] text-white/35">Registration fee: ₦10,000 (commitment, paid upfront)</p>
           <div
             className="mx-auto mt-6 max-w-sm rounded-2xl p-4 text-left text-[12px]"
