@@ -63,7 +63,7 @@ export default function ScheduleSection() {
           <ModeCard
             icon={Laptop}
             title="Online"
-            note="Available on Zoom & YouTube Live"
+            note="Available on Google Meet & Teams"
             schedule={{ saturday: '7:00 PM', sunday: '7:00 PM' }}
             highlighted
           />

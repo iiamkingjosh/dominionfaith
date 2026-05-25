@@ -22,7 +22,7 @@ const itemVariantsReduced = {
 }
 
 const STATS = [
-  { icon: BookOpen,      value: '6',            label: 'Courses'         },
+  { icon: BookOpen,      value: '8',            label: 'Courses'         },
   { icon: Users,         value: '2',            label: 'Study Modes'     },
   { icon: CalendarDays,  value: 'June 2025',    label: 'Next Intake'     },
   { icon: GraduationCap, value: 'Certificate',  label: 'Award'           },

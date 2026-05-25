@@ -1,4 +1,4 @@
-import { BookOpen, Target, Sparkles, BookMarked, Crown, Shield } from 'lucide-react'
+import { BookOpen, Target, Sparkles, BookMarked, Crown, Shield, Eye, HeartHandshake } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
 export interface Course {
@@ -44,5 +44,17 @@ export const COURSES: Course[] = [
     title: 'Spiritual Warfare',
     icon: Shield,
     description: "Understanding the believer's authority, the weapons of our warfare, and how to stand firm in victory.",
+  },
+  {
+    id: 'vision-analysis',
+    title: 'Vision Analysis',
+    icon: Eye,
+    description: 'Learning how to receive, articulate, and pursue God-given vision with clarity, focus, and strategic purpose.',
+  },
+  {
+    id: 'principles-of-divine-healing',
+    title: 'Principles of Divine Healing',
+    icon: HeartHandshake,
+    description: "Exploring the scriptural basis for healing, the believer's covenant right to health, and how to minister healing effectively.",
   },
 ]

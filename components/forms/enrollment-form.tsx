@@ -194,8 +194,7 @@ export default function EnrollmentForm() {
             <Field label="Title" error={errors.title?.message} required>
               <RadioGroup name="title"
                 options={['Mr.', 'Mrs.', 'Dr.', 'Miss', 'Mister', 'Other'].map(v => ({ value: v, label: v }))}
-                value={titleVal ?? ''} onChange={v => setValue('title', v as EnrollmentData['title'], { shouldValidate: true })}
-                error={errors.title?.message} />
+                value={titleVal ?? ''} onChange={v => setValue('title', v as EnrollmentData['title'], { shouldValidate: true })} />
               {titleVal === 'Other' && (
                 <input type="text" placeholder="Please specify…" {...register('titleOther')}
                   className={`mt-2 ${INPUT_BASE} ${INPUT_IDLE}`} />
@@ -227,16 +226,14 @@ export default function EnrollmentForm() {
 
             <Field label="Gender" error={errors.gender?.message} required>
               <RadioGroup name="gender" options={[{ value: 'Male', label: 'Male' }, { value: 'Female', label: 'Female' }]}
-                value={watch('gender') ?? ''} onChange={v => setValue('gender', v as 'Male' | 'Female', { shouldValidate: true })}
-                error={errors.gender?.message} />
+                value={watch('gender') ?? ''} onChange={v => setValue('gender', v as 'Male' | 'Female', { shouldValidate: true })} />
             </Field>
 
             <Field label="Marital Status" error={errors.maritalStatus?.message} required>
               <RadioGroup name="maritalStatus"
                 options={['Married', 'Single', 'Divorced', 'Widow / Widower', 'Separated'].map(v => ({ value: v, label: v }))}
                 value={watch('maritalStatus') ?? ''}
-                onChange={v => setValue('maritalStatus', v as EnrollmentData['maritalStatus'], { shouldValidate: true })}
-                error={errors.maritalStatus?.message} />
+                onChange={v => setValue('maritalStatus', v as EnrollmentData['maritalStatus'], { shouldValidate: true })} />
             </Field>
 
             <Field label="Phone Number" error={errors.phone?.message} required hint="11 digits starting with 0, e.g. 08012345678" id="phone">
@@ -256,8 +253,7 @@ export default function EnrollmentForm() {
 
             <Field label="District" error={errors.district?.message} required>
               <RadioGroup name="district" options={DISTRICTS.map(d => ({ value: d.value, label: d.label }))}
-                value={district ?? ''} onChange={v => setValue('district', v as EnrollmentData['district'], { shouldValidate: true })}
-                error={errors.district?.message} />
+                value={district ?? ''} onChange={v => setValue('district', v as EnrollmentData['district'], { shouldValidate: true })} />
               {district === 'Other' && (
                 <input type="text" placeholder="Please specify your district…" {...register('districtOther')}
                   className={`mt-2 ${INPUT_BASE} ${INPUT_IDLE}`} />
@@ -268,14 +264,12 @@ export default function EnrollmentForm() {
               <RadioGroup name="programmeMode"
                 options={[{ value: 'Physical', label: 'Physical Class' }, { value: 'Online', label: 'Online Class' }]}
                 value={watch('programmeMode') ?? ''}
-                onChange={v => setValue('programmeMode', v as 'Physical' | 'Online', { shouldValidate: true })}
-                error={errors.programmeMode?.message} />
+                onChange={v => setValue('programmeMode', v as 'Physical' | 'Online', { shouldValidate: true })} />
             </Field>
 
             <Field label="Are You Currently Employed?" error={errors.employed?.message} required>
               <RadioGroup name="employed" options={[{ value: 'Yes', label: 'Yes' }, { value: 'No', label: 'No' }, { value: 'Maybe', label: 'Maybe' }]}
-                value={employed ?? ''} onChange={v => setValue('employed', v as 'Yes' | 'No' | 'Maybe', { shouldValidate: true })}
-                error={errors.employed?.message} />
+                value={employed ?? ''} onChange={v => setValue('employed', v as 'Yes' | 'No' | 'Maybe', { shouldValidate: true })} />
               {employed === 'Yes' && (
                 <input type="text" placeholder="State your occupation" {...register('occupation')}
                   className={`mt-2 ${INPUT_BASE} ${INPUT_IDLE}`} />
@@ -284,8 +278,7 @@ export default function EnrollmentForm() {
 
             <Field label="Have You Participated in the SOM Programme Before?" error={errors.previousSOM?.message} required>
               <RadioGroup name="previousSOM" options={[{ value: 'Yes', label: 'Yes' }, { value: 'No', label: 'No' }]}
-                value={prevSOM ?? ''} onChange={v => setValue('previousSOM', v as 'Yes' | 'No', { shouldValidate: true })}
-                error={errors.previousSOM?.message} />
+                value={prevSOM ?? ''} onChange={v => setValue('previousSOM', v as 'Yes' | 'No', { shouldValidate: true })} />
               {prevSOM === 'Yes' && (
                 <textarea rows={2} placeholder="E.g. HQ, Online Class — 2024 Session" {...register('previousSOMDetails')}
                   className={`mt-2 ${INPUT_BASE} resize-none ${INPUT_IDLE}`} />
@@ -320,8 +313,7 @@ export default function EnrollmentForm() {
 
             <Field label="Have You Attended Any Other Bible College?" error={errors.previousBibleCollege?.message} required>
               <RadioGroup name="previousBibleCollege" options={[{ value: 'Yes', label: 'Yes' }, { value: 'No', label: 'No' }]}
-                value={prevBible ?? ''} onChange={v => setValue('previousBibleCollege', v as 'Yes' | 'No', { shouldValidate: true })}
-                error={errors.previousBibleCollege?.message} />
+                value={prevBible ?? ''} onChange={v => setValue('previousBibleCollege', v as 'Yes' | 'No', { shouldValidate: true })} />
               {prevBible === 'Yes' && (
                 <textarea rows={3} placeholder="Name of Bible school, location, date period attended"
                   {...register('previousBibleCollegeDetails')}
