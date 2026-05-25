@@ -6,4 +6,5 @@ node_modules
 _mocks_
 _tests_
 .swc
+.env.local
 
