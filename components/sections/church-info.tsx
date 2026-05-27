@@ -26,9 +26,9 @@ function YouTubeIcon() {
 }
 
 const SERVICE_TIMES = [
-  { day: 'Sunday',    times: '9:00 AM & 11:00 AM'  },
-  { day: 'Wednesday', times: '6:00 PM — Bible Study' },
-  { day: 'Friday',    times: '6:00 AM — Prayer'     },
+  { day: 'Sunday',    times: '9:00 AM — Temple Celebration'   },
+  { day: 'Wednesday', times: '7:00 PM — Housecare Fellowship' },
+  { day: 'Friday',    times: '5:00 PM — Dominion Service'     },
 ]
 
 const SOCIAL = [

@@ -21,7 +21,7 @@ const FAQ: FaqItem[] = [
   },
   {
     q: 'What time are services?',
-    a: 'Our Sunday services run at 9:00 AM and 11:00 AM at the Headquarters, 1 Dominion Avenue, Onireke, Lagos. Midweek Bible Study holds every Wednesday at 6:00 PM, and Prayer Meeting is every Friday at 6:00 AM. Check the Events page for special programmes.',
+    a: 'Our Sunday Temple Celebration runs at 9:00 AM at the Headquarters, 1 Dominion Avenue, Onireke, Lagos. Housecare Fellowship holds every Wednesday at 7:00 PM, and Dominion Service is every Friday at 5:00 PM. Check the Events page for special programmes.',
     link: { label: 'View Events', href: '/events' },
   },
   {
@@ -41,7 +41,7 @@ const FAQ: FaqItem[] = [
   },
   {
     q: 'How can I request prayer?',
-    a: 'You can submit a prayer request through the contact form on this page (select "Prayer Request" as the subject). Our Prayer Department intercedes faithfully for every request received. You may also join our Friday 6 AM Prayer Meeting in person.',
+    a: 'You can submit a prayer request through the contact form on this page (select "Prayer Request" as the subject). Our Prayer Department intercedes faithfully for every request received. You may also join our Friday Dominion Service at 5:00 PM in person.',
     link: { label: 'Submit a Prayer Request', href: '#contact-form' },
   },
 ]
