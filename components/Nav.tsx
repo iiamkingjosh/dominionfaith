@@ -15,15 +15,14 @@ type NavItem = { label: string; href: string; children?: NavChild[] }
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  { label: 'Home',      href: '/'         },
+  { label: 'About',     href: '/about'    },
   {
     label: 'Ministries',
     href: '/ministries',
     children: [
-      { label: 'Leadership', href: '/leadership' },
       { label: 'School of Ministry', href: '/ministries/school-of-ministry' },
-      { label: 'House Fellowship', href: '/house-fellowship' },
+      { label: 'All Ministries',     href: '/ministries'                    },
     ],
   },
   {
@@ -31,19 +30,13 @@ const NAV_ITEMS: NavItem[] = [
     href: '/media',
     children: [
       { label: 'Sermon Archive', href: '/media/sermons' },
-      { label: 'Sermon Series', href: '/media/series' },
+      { label: 'Sermon Series',  href: '/media/series'  },
     ],
   },
-  { label: 'Sermons', href: '/sermons' },
-  { label: 'Events', href: '/events' },
-  {
-    label: 'Blog',
-    href: '/blog',
-    children: [
-      { label: 'Contact',   href: '/contact'   },
-      { label: 'Locations', href: '/locations' },
-    ],
-  },
+  { label: 'Sermons',   href: '/sermons'   },
+  { label: 'Events',    href: '/events'    },
+  { label: 'Blog',      href: '/blog'      },
+  { label: 'Locations', href: '/locations' },
 ]
 
 // ── Framer Motion variants ────────────────────────────────────────────────────

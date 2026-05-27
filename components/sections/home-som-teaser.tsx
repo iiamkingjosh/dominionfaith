@@ -4,7 +4,7 @@ import { GraduationCap, BookOpen, Users, CalendarDays } from 'lucide-react'
 const STATS = [
   { icon: BookOpen,      value: '8',           label: 'Courses'     },
   { icon: Users,         value: '2',           label: 'Study Modes' },
-  { icon: CalendarDays,  value: 'June 2025',   label: 'Next Intake' },
+  { icon: CalendarDays,  value: 'June 2026',   label: 'Next Intake' },
   { icon: GraduationCap, value: 'Certificate', label: 'Award'       },
 ]
 
@@ -49,7 +49,7 @@ export default function HomeSchoolOfMinistry() {
               aria-hidden="true"
             />
             <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white/70">
-              New Intake · June 2025
+              New Intake · June 2026
             </span>
           </div>
 

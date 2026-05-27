@@ -1,61 +1,11 @@
 import type { Metadata } from 'next'
 import SermonGrid from '@/components/SermonGrid'
-import type { Sermon } from '@/types/sermon'
+import { ALL_SERMONS } from '@/lib/sermons'
 
 export const metadata: Metadata = {
   title: 'Sermons — Dominion Faith',
   description: 'Watch and download sermons from Dominion Faith International Ministry.',
 }
-
-const SERMONS: Sermon[] = [
-  {
-    id: '1',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'Walking in Dominion',
-    speaker: 'Pastor Joshua',
-    date: '2024-03-10',
-    series: 'Kingdom Foundations',
-  },
-  {
-    id: '2',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'The Power of Faith',
-    speaker: 'Pastor Joshua',
-    date: '2024-03-03',
-    series: 'Kingdom Foundations',
-  },
-  {
-    id: '3',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'Champions Are Made',
-    speaker: 'Pastor Joshua',
-    date: '2024-02-25',
-    series: 'Raising Champions',
-  },
-  {
-    id: '4',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'Seated in High Places',
-    speaker: 'Pastor Joshua',
-    date: '2024-02-18',
-    series: 'Raising Champions',
-  },
-  {
-    id: '5',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'Dominion Over Circumstances',
-    speaker: 'Pastor Joshua',
-    date: '2024-02-11',
-  },
-  {
-    id: '6',
-    videoId: 'dQw4w9WgXcQ',
-    title: "The Overcomer's Mindset",
-    speaker: 'Pastor Joshua',
-    date: '2024-02-04',
-    series: 'Kingdom Foundations',
-  },
-]
 
 export default function SermonsPage() {
   return (
@@ -91,7 +41,7 @@ export default function SermonsPage() {
           </p>
         </div>
 
-        <SermonGrid sermons={SERMONS} />
+        <SermonGrid sermons={ALL_SERMONS} />
       </div>
     </main>
   )

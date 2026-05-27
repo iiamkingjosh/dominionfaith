@@ -1,34 +1,9 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import SermonGrid from '@/components/SermonGrid'
-import type { Sermon } from '@/types/sermon'
+import { ALL_SERMONS } from '@/lib/sermons'
 
-const LATEST_SERMONS: Sermon[] = [
-  {
-    id: '1',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'Walking in Dominion',
-    speaker: 'Pastor Joshua',
-    date: '2024-03-10',
-    series: 'Kingdom Foundations',
-  },
-  {
-    id: '2',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'The Power of Faith',
-    speaker: 'Pastor Joshua',
-    date: '2024-03-03',
-    series: 'Kingdom Foundations',
-  },
-  {
-    id: '3',
-    videoId: 'dQw4w9WgXcQ',
-    title: 'Champions Are Made',
-    speaker: 'Pastor Joshua',
-    date: '2024-02-25',
-    series: 'Raising Champions',
-  },
-]
+const LATEST = ALL_SERMONS.slice(0, 3)
 
 export default function HomeLatestSermons() {
   return (
@@ -88,7 +63,7 @@ export default function HomeLatestSermons() {
           </Link>
         </div>
 
-        <SermonGrid sermons={LATEST_SERMONS} />
+        <SermonGrid sermons={LATEST} />
 
       </div>
     </section>

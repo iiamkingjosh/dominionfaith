@@ -24,7 +24,7 @@ const itemVariantsReduced = {
 const STATS = [
   { icon: BookOpen,      value: '8',            label: 'Courses'         },
   { icon: Users,         value: '2',            label: 'Study Modes'     },
-  { icon: CalendarDays,  value: 'June 2025',    label: 'Next Intake'     },
+  { icon: CalendarDays,  value: 'June 2026',    label: 'Next Intake'     },
   { icon: GraduationCap, value: 'Certificate',  label: 'Award'           },
 ]
 
@@ -137,7 +137,7 @@ export default function HeroSection() {
           className="flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-white/30"
         >
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#F61F27]" />
-          New Intake: June 2025 — Applications Now Open · Online &amp; In-Person
+          New Intake: June 2026 — Applications Now Open · Online &amp; In-Person
         </motion.p>
       </motion.div>
     </section>

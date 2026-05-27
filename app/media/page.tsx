@@ -213,7 +213,6 @@ export default function MediaPage() {
                 <Link
                   key={hub.href}
                   href={hub.href}
-                  {...(hub.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="group relative overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-2"
                   style={{ border: `1px solid ${hub.borderColor}` }}
                 >

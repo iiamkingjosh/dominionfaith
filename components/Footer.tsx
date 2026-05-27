@@ -52,10 +52,10 @@ const QUICK_LINKS = [
 ]
 
 const MINISTRY_LINKS = [
-  { label: 'Hospital & Prison Ministry', href: '/ministries'        },
-  { label: 'Faith Clinic',               href: '/ministries'        },
-  { label: 'School of Ministry',         href: '/ministries/school-of-ministry'},
-  { label: 'House Fellowship',           href: '/house-fellowship'  },
+  { label: 'Hospital & Prison Ministry', href: '/ministries'                     },
+  { label: 'Faith Clinic',               href: '/ministries'                     },
+  { label: 'School of Ministry',         href: '/ministries/school-of-ministry'  },
+  { label: 'House Fellowship',           href: '/ministries'                     },
 ]
 
 const SOCIAL = [
