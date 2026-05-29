@@ -1,12 +1,20 @@
 import type { Metadata } from 'next'
 import SermonArchiveClient from '@/components/sections/sermon-archive-client'
+import { getSermons } from '@/lib/sermons'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Sermon Archive — Dominion Faith International Ministry',
   description: 'Search and filter every message from Dominion Faith — by title, speaker, scripture, series, or topic.',
 }
 
-export default function SermonArchivePage() {
+export default async function SermonArchivePage() {
+  const sermons = await getSermons()
+  const speakers = Array.from(new Set(sermons.map(s => s.speaker)))
+  const series   = Array.from(new Set(sermons.map(s => s.series).filter((s): s is string => Boolean(s))))
+  const topics   = Array.from(new Set(sermons.flatMap(s => s.topic ?? [])))
+
   return (
     <main
       className="min-h-screen"
@@ -41,7 +49,12 @@ export default function SermonArchivePage() {
       </div>
 
       {/* ── Search / Filter / Grid ── */}
-      <SermonArchiveClient />
+      <SermonArchiveClient
+        sermons={sermons}
+        speakers={speakers}
+        series={series}
+        topics={topics}
+      />
     </main>
   )
 }

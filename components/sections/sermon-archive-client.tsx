@@ -4,8 +4,8 @@ import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, X, SlidersHorizontal, ChevronDown } from 'lucide-react'
 import { useDebounce } from '@/hooks/useDebounce'
-import { ALL_SERMONS, ALL_SPEAKERS, ALL_SERIES, ALL_TOPICS } from '@/lib/sermons'
 import SermonArchiveCard from '@/components/ui/sermon-archive-card'
+import type { Sermon } from '@/types/sermon'
 
 const MotionDiv = motion.div
 
@@ -13,6 +13,13 @@ const PAGE_SIZE = 12
 type SortKey = 'newest' | 'oldest' | 'most-viewed'
 
 interface Filters { speaker: string; series: string; topic: string }
+
+interface Props {
+  sermons: Sermon[]
+  speakers: string[]
+  series: string[]
+  topics: string[]
+}
 
 function FilterSelect({ label, value, options, onChange }: {
   label: string; value: string; options: string[]; onChange: (v: string) => void
@@ -37,7 +44,7 @@ function FilterSelect({ label, value, options, onChange }: {
   )
 }
 
-export default function SermonArchiveClient() {
+export default function SermonArchiveClient({ sermons, speakers, series, topics }: Props) {
   const [query, setQuery] = useState('')
   const [filters, setFilters] = useState<Filters>({ speaker: '', series: '', topic: '' })
   const [sort, setSort] = useState<SortKey>('newest')
@@ -49,7 +56,7 @@ export default function SermonArchiveClient() {
 
   const results = useMemo(() => {
     const q = debouncedQuery.toLowerCase().trim()
-    let list = ALL_SERMONS.filter(s => {
+    let list = sermons.filter(s => {
       if (q && !([s.title, s.speaker, s.scripture ?? '', s.series ?? '', ...(s.topic ?? [])].join(' ').toLowerCase().includes(q))) return false
       if (filters.speaker && s.speaker !== filters.speaker) return false
       if (filters.series && s.series !== filters.series) return false
@@ -60,7 +67,7 @@ export default function SermonArchiveClient() {
     else if (sort === 'oldest') list = [...list].sort((a, b) => a.date.localeCompare(b.date))
     else                        list = [...list].sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0))
     return list
-  }, [debouncedQuery, filters, sort])
+  }, [debouncedQuery, filters, sort, sermons])
 
   const totalPages = Math.ceil(results.length / PAGE_SIZE)
   const pageResults = results.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
@@ -116,8 +123,8 @@ export default function SermonArchiveClient() {
             className="w-full appearance-none rounded-2xl border bg-transparent py-3 pl-4 pr-9 text-[13px] text-white/70 focus:outline-none"
             style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}
           >
-            <option value="newest"     style={{ background: '#07071f' }}>Newest First</option>
-            <option value="oldest"     style={{ background: '#07071f' }}>Oldest First</option>
+            <option value="newest"      style={{ background: '#07071f' }}>Newest First</option>
+            <option value="oldest"      style={{ background: '#07071f' }}>Oldest First</option>
             <option value="most-viewed" style={{ background: '#07071f' }}>Most Viewed</option>
           </select>
           <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/40" />
@@ -136,9 +143,9 @@ export default function SermonArchiveClient() {
           >
             <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <FilterSelect label="All Speakers" value={filters.speaker} options={ALL_SPEAKERS} onChange={v => setFilter('speaker', v)} />
-                <FilterSelect label="All Series"   value={filters.series}  options={ALL_SERIES}   onChange={v => setFilter('series', v)} />
-                <FilterSelect label="All Topics"   value={filters.topic}   options={ALL_TOPICS}   onChange={v => setFilter('topic', v)} />
+                <FilterSelect label="All Speakers" value={filters.speaker} options={speakers} onChange={v => setFilter('speaker', v)} />
+                <FilterSelect label="All Series"   value={filters.series}  options={series}   onChange={v => setFilter('series', v)} />
+                <FilterSelect label="All Topics"   value={filters.topic}   options={topics}   onChange={v => setFilter('topic', v)} />
               </div>
               {activeFilterCount > 0 && (
                 <button onClick={clearFilters} className="mt-3 text-[12px] text-white/40 underline hover:text-white/70">
