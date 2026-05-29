@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Play, BookOpen, Radio, ArrowRight, Clock, BookMarked } from 'lucide-react'
-import { ALL_SERMONS } from '@/lib/sermons'
-import { ALL_SERIES_DATA } from '@/lib/series'
+import { getSermons } from '@/lib/sermons'
+import { getAllSeries } from '@/lib/series'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Media — Dominion Faith International Ministry',
@@ -16,52 +18,65 @@ function fmtDate(iso: string) {
   })
 }
 
-const HUBS = [
-  {
-    href: '/media/sermons',
-    icon: BookOpen,
-    label: 'Sermon Archive',
-    sub: `${ALL_SERMONS.length} messages`,
-    description: 'Search every message by title, speaker, scripture, or series.',
-    gradient: 'linear-gradient(135deg, #0d1240 0%, #2A2FAA 100%)',
-    glowColor: 'rgba(42,47,170,0.35)',
-    borderColor: 'rgba(42,47,170,0.3)',
-    accentColor: '#6670d0',
-  },
-  {
-    href: '/media/series',
-    icon: BookMarked,
-    label: 'Sermon Series',
-    sub: `${ALL_SERIES_DATA.length} series`,
-    description: 'Go deeper with curated message series from start to finish.',
-    gradient: 'linear-gradient(135deg, #1a0a00 0%, #F9A916 100%)',
-    glowColor: 'rgba(249,169,22,0.3)',
-    borderColor: 'rgba(249,169,22,0.3)',
-    accentColor: '#F9A916',
-  },
-  {
-    href: '/live',
-    icon: Radio,
-    label: 'Watch Live',
-    sub: 'Sundays 9 AM',
-    description: 'Join our live Sunday services from anywhere in the world.',
-    gradient: 'linear-gradient(135deg, #1a0000 0%, #F61F27 100%)',
-    glowColor: 'rgba(246,31,39,0.3)',
-    borderColor: 'rgba(246,31,39,0.3)',
-    accentColor: '#F61F27',
-  },
-]
+export default async function MediaPage() {
+  const [sermons, allSeries] = await Promise.all([getSermons(), getAllSeries()])
 
-const STATS = [
-  { value: `${ALL_SERMONS.length}+`, label: 'Messages' },
-  { value: `${ALL_SERIES_DATA.length}`,  label: 'Series' },
-  { value: '20+',                        label: 'Hours' },
-]
+  const HUBS = [
+    {
+      href: '/media/sermons',
+      icon: BookOpen,
+      label: 'Sermon Archive',
+      sub: `${sermons.length} messages`,
+      description: 'Search every message by title, speaker, scripture, or series.',
+      gradient: 'linear-gradient(135deg, #0d1240 0%, #2A2FAA 100%)',
+      glowColor: 'rgba(42,47,170,0.35)',
+      borderColor: 'rgba(42,47,170,0.3)',
+      accentColor: '#6670d0',
+    },
+    {
+      href: '/media/series',
+      icon: BookMarked,
+      label: 'Sermon Series',
+      sub: `${allSeries.length} series`,
+      description: 'Go deeper with curated message series from start to finish.',
+      gradient: 'linear-gradient(135deg, #1a0a00 0%, #F9A916 100%)',
+      glowColor: 'rgba(249,169,22,0.3)',
+      borderColor: 'rgba(249,169,22,0.3)',
+      accentColor: '#F9A916',
+    },
+    {
+      href: '/live',
+      icon: Radio,
+      label: 'Watch Live',
+      sub: 'Sundays 9 AM',
+      description: 'Join our live Sunday services from anywhere in the world.',
+      gradient: 'linear-gradient(135deg, #1a0000 0%, #F61F27 100%)',
+      glowColor: 'rgba(246,31,39,0.3)',
+      borderColor: 'rgba(246,31,39,0.3)',
+      accentColor: '#F61F27',
+    },
+  ]
 
-export default function MediaPage() {
-  const latest = [...ALL_SERMONS].sort((a, b) => b.date.localeCompare(a.date))[0]
-  const ytUrl  = `https://youtube.com/watch?v=${latest.videoId}`
-  const thumb  = `https://img.youtube.com/vi/${latest.videoId}/maxresdefault.jpg`
+  const STATS = [
+    { value: `${sermons.length}+`, label: 'Messages' },
+    { value: `${allSeries.length}`,  label: 'Series' },
+    { value: '20+',                  label: 'Hours' },
+  ]
+
+  const latest = [...sermons].sort((a, b) => b.date.localeCompare(a.date))[0]
+
+  if (!latest) {
+    return (
+      <main className="min-h-screen" style={{ background: '#07071f' }}>
+        <section className="flex min-h-screen items-center justify-center">
+          <p className="text-white/40">No sermons available yet.</p>
+        </section>
+      </main>
+    )
+  }
+
+  const ytUrl = `https://youtube.com/watch?v=${latest.videoId}`
+  const thumb = `https://img.youtube.com/vi/${latest.videoId}/maxresdefault.jpg`
 
   return (
     <main className="min-h-screen" style={{ background: '#07071f' }}>
