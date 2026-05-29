@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import BlogGrid from '@/components/BlogGrid'
-import { BLOG_POSTS } from '@/lib/blog'
+import { getBlogPosts } from '@/lib/blog'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Blog — Dominion Faith',
@@ -8,7 +10,9 @@ export const metadata: Metadata = {
     'Spirit-filled articles on faith, leadership, marriage, and Kingdom finance from Dominion Faith International Ministry.',
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getBlogPosts()
+
   return (
     <main
       className="min-h-screen px-6 py-32 md:px-16 lg:px-24"
@@ -39,13 +43,13 @@ export default function BlogPage() {
           Blog
         </h1>
         <p className="mx-auto mt-3 max-w-md text-sm text-white/45">
-          Teachings, insights, and Kingdom wisdom to sharpen your faith and
-          ignite your purpose — new articles every week.
+          Spirit-filled articles on faith, leadership, marriage, and Kingdom finance.
         </p>
       </div>
 
+      {/* ── Blog grid ── */}
       <div className="mx-auto max-w-7xl">
-        <BlogGrid posts={BLOG_POSTS} />
+        <BlogGrid posts={posts} />
       </div>
     </main>
   )

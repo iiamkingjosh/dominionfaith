@@ -1,19 +1,17 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, Play, Calendar, MessageSquare } from 'lucide-react'
-import { getSeriesBySlug, ALL_SERIES_DATA } from '@/lib/series'
+import { ArrowLeft, MessageSquare, Calendar } from 'lucide-react'
+import { getSeriesBySlug } from '@/lib/series'
 import { getSermonsBySeriesSlug } from '@/lib/sermons'
 import SeriesSermonList from '@/components/sections/series-sermon-list'
 
+export const revalidate = 60
+
 interface PageProps { params: { slug: string } }
 
-export function generateStaticParams() {
-  return ALL_SERIES_DATA.map(s => ({ slug: s.slug }))
-}
-
-export function generateMetadata({ params }: PageProps): Metadata {
-  const series = getSeriesBySlug(params.slug)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const series = await getSeriesBySlug(params.slug)
   if (!series) return { title: 'Series Not Found' }
   return {
     title: `${series.title} — Dominion Faith`,
@@ -25,11 +23,13 @@ function fmtDate(d: string) {
   return new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
 }
 
-export default function SeriesDetailPage({ params }: PageProps) {
-  const series = getSeriesBySlug(params.slug)
-  if (!series) notFound()
+export default async function SeriesDetailPage({ params }: PageProps) {
+  const [series, sermons] = await Promise.all([
+    getSeriesBySlug(params.slug),
+    getSermonsBySeriesSlug(params.slug),
+  ])
 
-  const sermons = getSermonsBySeriesSlug(params.slug)
+  if (!series) notFound()
 
   return (
     <main className="min-h-screen" style={{ background: 'linear-gradient(160deg, #0f0f12 0%, #07071f 100%)' }}>
@@ -41,7 +41,7 @@ export default function SeriesDetailPage({ params }: PageProps) {
         }} />
         <span className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 font-black text-white/8 select-none"
           style={{ fontSize: 'clamp(100px, 18vw, 220px)' }}>
-          {series.title.split(' ').map(w => w[0]).slice(0, 2).join('')}
+          {series.title.split(' ').map((w: string) => w[0]).slice(0, 2).join('')}
         </span>
         <div className="relative mx-auto max-w-5xl px-6 md:px-16">
           <Link href="/media/series" className="mb-8 inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
@@ -67,7 +67,7 @@ export default function SeriesDetailPage({ params }: PageProps) {
         <SeriesSermonList sermons={sermons} />
       </div>
 
-      {/* Related series */}
+      {/* Back link */}
       <div className="border-t border-white/[0.06] px-6 py-12 text-center md:px-16">
         <Link href="/media/series" className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-bold text-white transition-opacity hover:opacity-85"
           style={{ background: '#2A2FAA' }}>

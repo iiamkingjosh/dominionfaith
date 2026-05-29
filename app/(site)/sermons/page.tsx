@@ -1,13 +1,17 @@
 import type { Metadata } from 'next'
 import SermonGrid from '@/components/SermonGrid'
-import { ALL_SERMONS } from '@/lib/sermons'
+import { getSermons } from '@/lib/sermons'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Sermons — Dominion Faith',
   description: 'Watch and download sermons from Dominion Faith International Ministry.',
 }
 
-export default function SermonsPage() {
+export default async function SermonsPage() {
+  const sermons = await getSermons()
+
   return (
     <main
       className="min-h-screen px-6 py-32 md:px-16 lg:px-24"
@@ -41,7 +45,7 @@ export default function SermonsPage() {
           </p>
         </div>
 
-        <SermonGrid sermons={ALL_SERMONS} />
+        <SermonGrid sermons={sermons} />
       </div>
     </main>
   )
