@@ -12,6 +12,7 @@ export interface ChurchEvent {
   category: EventCategory
   registrationUrl?: string
   featured?: boolean  // spans 2 columns in bento grid
+  image?: string      // Sanity CDN URL, optional
 }
 
 export interface CategoryConfig {

@@ -16,6 +16,7 @@ export interface BlogPost {
   title: string
   excerpt: string
   content?: string[]    // array of paragraph strings for the full article
+  body?: any[]          // Portable Text blocks from Sanity
   category: BlogCategory
   author: BlogAuthor
   publishedAt: string   // ISO "YYYY-MM-DD"
