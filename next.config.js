@@ -5,7 +5,10 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
   fallbacks: { document: '/offline' },
-  workboxOptions: { disableDevLogs: true },
+  workboxOptions: {
+    disableDevLogs: true,
+    navigateFallbackDenylist: [/^\/studio/],
+  },
 })
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -21,11 +24,13 @@ const nextConfig = {
         hostname: 'img.youtube.com',
         pathname: '/vi/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
     ],
     formats: ['image/avif', 'image/webp'],
   },
-  // Defer non-critical third-party scripts via script strategy
-  // (individual components use strategy="lazyOnload")
 }
 
 module.exports = withBundleAnalyzer(withPWA(nextConfig))
