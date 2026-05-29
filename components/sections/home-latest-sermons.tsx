@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import SermonGrid from '@/components/SermonGrid'
-import { ALL_SERMONS } from '@/lib/sermons'
+import { getSermons } from '@/lib/sermons'
 
-const LATEST = ALL_SERMONS.slice(0, 3)
+export default async function HomeLatestSermons() {
+  const sermons = await getSermons()
+  const latest = sermons.slice(0, 3)
 
-export default function HomeLatestSermons() {
   return (
     <section
       className="w-full py-24 md:py-32"
@@ -63,7 +64,7 @@ export default function HomeLatestSermons() {
           </Link>
         </div>
 
-        <SermonGrid sermons={LATEST} />
+        <SermonGrid sermons={latest} />
 
       </div>
     </section>
