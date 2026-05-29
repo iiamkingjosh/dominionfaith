@@ -17,6 +17,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config) => {
+    config.resolve.alias['react/compiler-runtime'] = require.resolve('./shims/react-compiler-runtime.js')
+    return config
+  },
   images: {
     remotePatterns: [
       {
