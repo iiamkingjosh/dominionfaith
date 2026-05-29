@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { getEvents } from '@/lib/events'
 import EventGrid from '@/components/EventGrid'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'Events — Dominion Faith',
   description:

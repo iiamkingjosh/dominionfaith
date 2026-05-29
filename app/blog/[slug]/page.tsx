@@ -2,19 +2,18 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Clock, ArrowLeft, Calendar } from 'lucide-react'
-import { BLOG_POSTS } from '@/lib/blog'
+import { PortableText } from '@portabletext/react'
+import { getPostBySlug, getBlogPosts } from '@/lib/blog'
 import { BLOG_CATEGORY_CONFIG } from '@/types/blog'
+
+export const revalidate = 60
 
 interface PageProps {
   params: { slug: string }
 }
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map(post => ({ slug: post.slug }))
-}
-
-export function generateMetadata({ params }: PageProps): Metadata {
-  const post = BLOG_POSTS.find(p => p.slug === params.slug)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug)
   if (!post) return { title: 'Post Not Found — Dominion Faith' }
   return {
     title: `${post.title} — Dominion Faith Blog`,
@@ -28,12 +27,60 @@ function fmtDate(iso: string): string {
   })
 }
 
-export default function BlogPostPage({ params }: PageProps) {
-  const post = BLOG_POSTS.find(p => p.slug === params.slug)
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: any) => (
+      <p
+        className="mb-6 text-base leading-[1.85] text-white/75"
+        style={{ fontSize: 'clamp(15px, 1.4vw, 17px)' }}
+      >
+        {children}
+      </p>
+    ),
+    h2: ({ children }: any) => (
+      <h2 className="mb-4 mt-10 text-2xl font-bold text-white">{children}</h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="mb-3 mt-8 text-xl font-bold text-white">{children}</h3>
+    ),
+    blockquote: ({ children }: any) => (
+      <blockquote className="mb-6 border-l-4 border-white/20 pl-4 italic text-white/60">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }: any) => (
+      <strong className="font-bold text-white">{children}</strong>
+    ),
+    em: ({ children }: any) => (
+      <em className="italic">{children}</em>
+    ),
+    link: ({ children, value }: any) => (
+      <a
+        href={value?.href}
+        className="text-[#F9A916] underline hover:text-[#fbc44a]"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ),
+  },
+}
+
+export default async function BlogPostPage({ params }: PageProps) {
+  const [post, allPosts] = await Promise.all([
+    getPostBySlug(params.slug),
+    getBlogPosts(),
+  ])
+
   if (!post) notFound()
 
   const cfg = BLOG_CATEGORY_CONFIG[post.category]
-  const related = BLOG_POSTS.filter(p => p.id !== post.id && p.category === post.category).slice(0, 3)
+  const related = allPosts
+    .filter(p => p.id !== post.id && p.category === post.category)
+    .slice(0, 3)
 
   return (
     <main
@@ -69,7 +116,6 @@ export default function BlogPostPage({ params }: PageProps) {
 
         {/* ── Meta row ── */}
         <div className="mb-10 flex flex-wrap items-center gap-4 border-b border-white/10 pb-8">
-          {/* Author */}
           <div className="flex items-center gap-2.5">
             <div
               className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold text-white"
@@ -100,16 +146,8 @@ export default function BlogPostPage({ params }: PageProps) {
 
         {/* ── Article content ── */}
         <article className="prose-church">
-          {post.content && post.content.length > 0 ? (
-            post.content.map((paragraph, i) => (
-              <p
-                key={i}
-                className="mb-6 text-base leading-[1.85] text-white/75"
-                style={{ fontSize: 'clamp(15px, 1.4vw, 17px)' }}
-              >
-                {paragraph}
-              </p>
-            ))
+          {post.body && post.body.length > 0 ? (
+            <PortableText value={post.body} components={portableTextComponents} />
           ) : (
             <p className="text-white/60 italic">Full article coming soon.</p>
           )}
