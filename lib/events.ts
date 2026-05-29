@@ -1,6 +1,7 @@
+// lib/events.ts
+import { client } from '@/sanity/lib/client'
+import { allEventsQuery } from '@/sanity/lib/queries'
 import type { ChurchEvent } from '@/types/event'
-
-// ── All 27 events from the 2026 Dominion Faith Annual Calendar ──
 
 export const DOMINION_EVENTS: ChurchEvent[] = [
   {
@@ -266,62 +267,7 @@ export const DOMINION_EVENTS: ChurchEvent[] = [
   },
 ]
 
-// ── Google Calendar API integration ──────────────────────────
-// Activate by setting these env vars in .env.local:
-//   NEXT_PUBLIC_GOOGLE_CALENDAR_ID=xxxxx@group.calendar.google.com
-//   NEXT_PUBLIC_GOOGLE_CALENDAR_API_KEY=AIza...
-
-function mapGoogleEventCategory(title: string): import('@/types/event').EventCategory {
-  const t = title.toLowerCase()
-  if (t.includes('youth') || t.includes('teen') || t.includes('student') || t.includes('singles'))
-    return 'youth'
-  if (t.includes('women') || t.includes('female')) return 'women'
-  if (t.includes('men') || t.includes('army') || t.includes('deacon')) return 'men'
-  if (t.includes('children') || t.includes('child')) return 'children'
-  if (t.includes('service') || t.includes('communion') || t.includes('vigil') ||
-      t.includes('fasting') || t.includes('prayer') || t.includes('feast') ||
-      t.includes('thanksgiving') || t.includes('easter'))
-    return 'services'
-  return 'special'
-}
-
-async function fetchGoogleCalendarEvents(): Promise<ChurchEvent[]> {
-  const calendarId = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_ID
-  const apiKey     = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_API_KEY
-  if (!calendarId || !apiKey) return []
-
-  try {
-    const url = new URL(
-      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`
-    )
-    url.searchParams.set('key', apiKey)
-    url.searchParams.set('orderBy', 'startTime')
-    url.searchParams.set('singleEvents', 'true')
-    url.searchParams.set('timeMin', new Date().toISOString())
-    url.searchParams.set('maxResults', '100')
-
-    const res = await fetch(url.toString(), { next: { revalidate: 3600 } })
-    if (!res.ok) return []
-
-    const data = await res.json()
-    return (data.items ?? []).map((item: any, i: number): ChurchEvent => ({
-      id:          item.id ?? String(i),
-      title:       item.summary ?? 'Untitled',
-      description: item.description ?? '',
-      startDate:   (item.start?.date ?? item.start?.dateTime ?? '').slice(0, 10),
-      endDate:     item.end?.date ? item.end.date.slice(0, 10) : undefined,
-      time:        item.start?.dateTime
-                     ? new Date(item.start.dateTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-                     : undefined,
-      location:    item.location ?? 'HQ — 1 Dominion Avenue, Onireke, Lagos',
-      category:    mapGoogleEventCategory(item.summary ?? ''),
-    }))
-  } catch {
-    return []
-  }
-}
-
 export async function getEvents(): Promise<ChurchEvent[]> {
-  const gcEvents = await fetchGoogleCalendarEvents()
-  return gcEvents.length > 0 ? gcEvents : DOMINION_EVENTS
+  const sanityEvents = await client.fetch(allEventsQuery, {}, { next: { revalidate: 60 } })
+  return sanityEvents.length > 0 ? sanityEvents : DOMINION_EVENTS
 }
