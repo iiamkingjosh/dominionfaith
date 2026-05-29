@@ -1,18 +1,9 @@
 import { type Metadata, type Viewport } from 'next'
-import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import AudioProviderWrapper from '@/components/audio/audio-provider-wrapper'
-
-// ── Font ────────────────────────────────────────────────────────
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-  preload: true,
-})
 
 // ── Viewport (themeColor must live here in Next.js 14.2+) ───────
 export const viewport: Viewport = {
@@ -47,7 +38,7 @@ export const metadata: Metadata = {
 // ── Layout ──────────────────────────────────────────────────────
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en">
       <body className="min-h-screen bg-slate-950 pb-[76px] font-sans text-white antialiased">
         <AudioProviderWrapper>
           <Nav />
